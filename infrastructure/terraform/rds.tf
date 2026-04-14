@@ -7,7 +7,7 @@ variable "db_password" {
 resource "aws_db_instance" "tjaem_db" {
   identifier           = "tjaem-prod-db"
   engine               = "postgres"
-  engine_version       = "15.4"
+  engine_version       = "15.10"
   instance_class       = "db.t3.micro"
   allocated_storage    = 20
   username             = "tjaem_admin"
@@ -25,7 +25,7 @@ resource "aws_db_instance" "tjaem_db" {
   monitoring_role_arn           = aws_iam_role.rds_monitoring_role.arn
   
   # Backups e Manutenção
-  backup_retention_period = 30
+  backup_retention_period = 0
   backup_window           = "03:00-04:00"
   maintenance_window      = "Mon:04:00-Mon:05:00"
   
@@ -56,4 +56,8 @@ resource "aws_iam_role" "rds_monitoring_role" {
 resource "aws_iam_role_policy_attachment" "rds_monitoring_policy" {
   role       = aws_iam_role.rds_monitoring_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
+}
+
+output "rds_endpoint" {
+  value = aws_db_instance.tjaem_db.endpoint
 }

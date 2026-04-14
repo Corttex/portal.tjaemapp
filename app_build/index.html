@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TJAEM — The Sovereign Archive</title>
+<meta name="description" content="Ecossistema Integrado do Tribunal de Justiça Arbitral e Mediação. Gestão processual, documentos OCR e conformidade CAMEB." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,600;1,6..72,700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: '#844c00',
+        'primary-container': '#a76100',
+        'on-primary': '#ffffff',
+        'on-primary-container': '#fff7f2',
+        secondary: '#5f5e5e',
+        'secondary-container': '#e5e2e1',
+        'on-secondary-container': '#656464',
+        surface: '#faf9f9',
+        'surface-variant': '#e3e2e2',
+        'surface-container': '#eeeeed',
+        'surface-container-low': '#f4f3f3',
+        'surface-container-lowest': '#ffffff',
+        'on-surface': '#1a1c1c',
+        'on-surface-variant': '#534437',
+        outline: '#867465',
+        'outline-variant': '#d8c3b1',
+        error: '#ba1a1a',
+        'error-container': '#ffdad6',
+        'on-error-container': '#93000a',
+      },
+      fontFamily: {
+        headline: ['Newsreader', 'serif'],
+        body: ['Work Sans', 'sans-serif'],
+      },
+      borderRadius: {
+        DEFAULT: '0.25rem',
+        lg: '0.25rem',
+        xl: '0.5rem',
+        full: '0.75rem',
+      },
+    },
+  },
+};
+</script>
+<style>
+  * { box-sizing: border-box; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+  .judicial-gradient { background: linear-gradient(135deg, #844c00 0%, #a76100 100%); }
+  .glass-panel { background: rgba(255,255,255,0.7); backdrop-filter: blur(20px); }
+  .glass-card { background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); }
+
+  /* Views */
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* LOGIN only */
+  #view-login { display: none; }
+  #view-login.active { display: flex; }
+
+  /* Sidebar nav active state */
+  .nav-link { transition: all 0.15s ease; }
+  .nav-link.active-link { background-color: #fff7f2; border-left: 3px solid #a76100; color: #a76100; }
+  .nav-link:not(.active-link):hover { background-color: #f4f3f3; }
+
+  /* Fade-in animation for views */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  .view.active { animation: fadeIn 0.25s ease; }
+
+  /* Table hover */
+  tr.process-row:hover { background-color: #f5faff; cursor: pointer; }
+
+  /* Scrollbar subtle */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: #f4f3f3; }
+  ::-webkit-scrollbar-thumb { background: #d8c3b1; border-radius: 3px; }
+
+  /* Status pills */
+  .pill-conciliacao { background: #ffdcbe; color: #351b00; }
+  .pill-instrucao   { background: #e5e2e1; color: #1c1b1b; }
+  .pill-urgente     { background: #ffdad6; color: #93000a; }
+  .pill-sentenca    { background: #dee3e5; color: #41484d; }
+
+  /* Progress bar */
+  .progress-bar { height: 3px; background: #e3e2e2; border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, #844c00, #a76100); }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+
+<!-- ══════════════════════════════════════════════
+     LOGIN SCREEN
+══════════════════════════════════════════════ -->
+<div id="view-login" class="view active min-h-screen flex flex-col md:flex-row">
+  <!-- Left panel: aesthetic anchor -->
+  <section class="relative w-full md:w-5/12 lg:w-1/2 min-h-[400px] md:min-h-screen overflow-hidden flex items-end p-8 md:p-16">
+    <div class="absolute inset-0 z-0">
+      <img alt="Grand judicial hall" class="w-full h-full object-cover"
+           src="https://lh3.googleusercontent.com/aida-public/AB6AXuAa5ERVhX8z6Uef6V_kfNXKjcl5kpg2plzgGeousFHTMKhyNfa73wVATHCGtI_-i_PJJ7QL7wze51BLkbMg9t7rexefEKHmAtahSSZjEZF5X7Rm577TVDMKmWhXebj1M0ca_Tifht-0QIJIOe9_wECT0qJqWdmGLe5DgjaXipbBXl_kPUsPGNlbLE_6CAU5csAmOQRPMKsZxAmDvXmKdq9NXKAROlGYNFnEMfJkLsk-ZGXzz8DilQkMffGKbWR0YTUCop-5ldv7-quA" />
+      <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+    </div>
+    <div class="relative z-10 max-w-xl">
+      <div class="mb-10 flex items-center space-x-6">
+        <div class="h-16 w-16 bg-white rounded-lg flex items-center justify-center p-2 shadow-2xl">
+          <span class="material-symbols-outlined text-4xl" style="color:#a76100; font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 48;">gavel</span>
+        </div>
+        <div class="h-10 w-px bg-white/20"></div>
+        <span class="text-white/80 font-body text-sm font-semibold tracking-widest uppercase">TJAEM · CAMEB</span>
+      </div>
+      <h1 class="font-headline text-5xl md:text-7xl text-white tracking-tight italic mb-6 leading-tight">
+        The Sovereign Archive
+      </h1>
+      <p class="text-white/70 font-body text-lg leading-relaxed max-w-md">
+        Acesse o Ecossistema Integrado TJAEM. Santuário seguro para a governança institucional e mediação judicial.
+      </p>
+    </div>
+  </section>
+
+  <!-- Right panel: login form -->
+  <section class="w-full md:w-7/12 lg:w-1/2 flex items-center justify-center p-6 md:p-20 bg-surface">
+    <div class="w-full max-w-md">
+      <header class="mb-12">
+        <span class="text-primary font-bold tracking-widest uppercase text-xs mb-3 block">Identity &amp; Access Management</span>
+        <h2 class="font-headline text-4xl text-on-surface leading-tight mb-4">Portal de Autenticação</h2>
+        <p class="text-on-surface-variant leading-relaxed">Selecione suas credenciais seguras para acessar o Ecossistema Integrado.</p>
+      </header>
+
+      <!-- Primary login options -->
+      <div class="space-y-4 mb-10">
+        <button onclick="doLogin()" class="judicial-gradient w-full py-5 px-8 rounded-lg flex items-center justify-between group hover:shadow-xl hover:shadow-primary/20 transition-all duration-300 active:scale-[0.99]">
+          <div class="flex items-center">
+            <span class="material-symbols-outlined text-white mr-4 text-2xl">verified_user</span>
+            <span class="text-white font-medium text-lg">Acesso via Certificado Digital</span>
+          </div>
+          <span class="material-symbols-outlined text-white/50 group-hover:translate-x-1 transition-transform">chevron_right</span>
+        </button>
+        <button onclick="doLogin()" class="w-full py-5 px-8 bg-surface-container border border-outline/10 rounded-lg flex items-center justify-between group hover:bg-surface-variant transition-all duration-300 active:scale-[0.99]">
+          <div class="flex items-center">
+            <span class="material-symbols-outlined text-primary mr-4 text-2xl">key</span>
+            <span class="text-on-surface font-medium text-lg">SSO CAMEB</span>
+          </div>
+          <span class="material-symbols-outlined text-on-surface-variant/30 group-hover:translate-x-1 transition-transform">chevron_right</span>
+        </button>
+      </div>
+
+      <!-- Divider -->
+      <div class="relative mb-10 flex items-center">
+        <div class="flex-grow h-px bg-outline/20"></div>
+        <span class="mx-4 text-xs font-bold uppercase tracking-widest text-on-surface-variant/50">Acesso Restrito</span>
+        <div class="flex-grow h-px bg-outline/20"></div>
+      </div>
+
+      <!-- Credential form -->
+      <div class="bg-surface-container-lowest p-8 rounded-xl border border-outline/10 shadow-sm">
+        <form class="space-y-5" onsubmit="doLogin(); return false;">
+          <div>
+            <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest mb-2" for="cpf-input">CPF / CNPJ</label>
+            <input class="w-full bg-surface-container border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-on-surface-variant/40 transition-all outline-none" id="cpf-input" placeholder="000.000.000-00" type="text" value="123.456.789-00" />
+          </div>
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-widest" for="pass-input">Senha de Acesso</label>
+              <a class="text-[10px] uppercase tracking-wider font-bold text-primary hover:underline" href="#">Esqueci</a>
+            </div>
+            <input class="w-full bg-surface-container border-none rounded-lg py-3 px-4 focus:ring-2 focus:ring-primary/20 text-on-surface placeholder:text-on-surface-variant/40 transition-all outline-none" id="pass-input" placeholder="••••••••••••" type="password" value="senha123" />
+          </div>
+          <button class="w-full py-3 judicial-gradient text-white font-bold rounded-lg hover:opacity-90 transition-all text-sm uppercase tracking-widest mt-2 active:scale-95" type="submit" id="btn-login">
+            Entrar no Sistema
+          </button>
+        </form>
+      </div>
+
+      <!-- Footer -->
+      <footer class="mt-12 flex flex-col md:flex-row justify-between items-center text-[11px] text-on-surface-variant/60 font-medium uppercase tracking-widest gap-3">
+        <div class="flex items-center">
+          <span class="material-symbols-outlined text-sm mr-2 text-primary">shield</span>
+          SSL Criptografado
+        </div>
+        <div class="flex space-x-6">
+          <a class="hover:text-primary transition-colors" href="#">Privacidade</a>
+          <a class="hover:text-primary transition-colors" href="#">Suporte Técnico</a>
+        </div>
+      </footer>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     APP SHELL (Sidebar + Top Bar)
+══════════════════════════════════════════════ -->
+<div id="app-shell" class="hidden">
+  <div class="flex min-h-screen">
+
+    <!-- ─── SIDEBAR ─── -->
+    <aside id="sidebar" class="bg-surface-container-lowest h-screen w-64 fixed left-0 top-0 z-40 flex flex-col py-4 border-r border-outline/10 transition-all duration-300">
+      <!-- Logo -->
+      <div class="px-6 mb-8">
+        <div class="flex items-center gap-3 mb-8">
+          <div class="w-10 h-10 judicial-gradient rounded flex items-center justify-center">
+            <span class="material-symbols-outlined text-white" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">gavel</span>
+          </div>
+          <div>
+            <p class="font-headline text-base font-bold text-on-surface leading-none">TJAEM</p>
+            <p class="text-[9px] text-on-surface-variant uppercase tracking-widest font-medium">Sovereign Archive</p>
+          </div>
+        </div>
+
+        <!-- Nav links -->
+        <nav class="space-y-1">
+          <a href="#" id="nav-dashboard" onclick="switchView('dashboard','nav-dashboard'); return false;"
+             class="nav-link active-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium" aria-label="Dashboard">
+            <span class="material-symbols-outlined text-xl">dashboard</span>
+            Dashboard
+          </a>
+          <a href="#" id="nav-processos" onclick="switchView('processos','nav-processos'); return false;"
+             class="nav-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium text-on-surface-variant" aria-label="Processos">
+            <span class="material-symbols-outlined text-xl">gavel</span>
+            Processos
+          </a>
+          <a href="#" id="nav-documentos" onclick="switchView('documentos','nav-documentos'); return false;"
+             class="nav-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium text-on-surface-variant" aria-label="Documentos OCR">
+            <span class="material-symbols-outlined text-xl">description</span>
+            Documentos &amp; OCR
+          </a>
+          <a href="#" id="nav-ead" onclick="switchView('ead','nav-ead'); return false;"
+             class="nav-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium text-on-surface-variant" aria-label="EAD">
+            <span class="material-symbols-outlined text-xl">school</span>
+            EAD &amp; Marketing
+          </a>
+          <a href="#" id="nav-conformidade" onclick="switchView('conformidade','nav-conformidade'); return false;"
+             class="nav-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium text-on-surface-variant" aria-label="Conformidade CAMEB">
+            <span class="material-symbols-outlined text-xl">verified</span>
+            Conformidade CAMEB
+          </a>
+          <a href="#" id="nav-usuarios" onclick="switchView('usuarios','nav-usuarios'); return false;"
+             class="nav-link flex items-center gap-3 px-3 py-3 rounded text-sm font-medium text-on-surface-variant" aria-label="Usuários">
+            <span class="material-symbols-outlined text-xl">group</span>
+            Usuários
+          </a>
+        </nav>
+      </div>
+
+      <!-- Sidebar footer -->
+      <div class="mt-auto px-6 pb-4 border-t border-outline/10 pt-4">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-8 h-8 judicial-gradient rounded-full flex items-center justify-center text-white text-xs font-bold">JD</div>
+          <div>
+            <p class="text-xs font-bold text-on-surface">João Dourado</p>
+            <p class="text-[9px] text-on-surface-variant">Árbitro Sênior</p>
+          </div>
+        </div>
+        <button onclick="doLogout()" class="w-full flex items-center gap-2 text-xs text-on-surface-variant hover:text-error transition-colors py-1">
+          <span class="material-symbols-outlined text-base">logout</span>
+          Sair do Sistema
+        </button>
+      </div>
+    </aside>
+
+    <!-- ─── MAIN CONTENT ─── -->
+    <div class="ml-64 flex-1 flex flex-col min-h-screen">
+      <!-- Top bar -->
+      <header class="sticky top-0 z-30 bg-surface-container-lowest border-b border-outline/10 px-8 py-4 flex items-center justify-between">
+        <div>
+          <h2 id="page-title" class="font-headline text-xl font-bold text-on-surface">Dashboard Operacional</h2>
+          <p id="page-breadcrumb" class="text-[10px] text-on-surface-variant uppercase tracking-widest">TJAEM · Painel Principal</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <div class="relative">
+            <input class="bg-surface-container rounded-lg py-2 pl-9 pr-4 text-sm text-on-surface placeholder:text-on-surface-variant/50 border-none outline-none focus:ring-2 focus:ring-primary/20 w-64" placeholder="Buscar processo..." type="search" />
+            <span class="material-symbols-outlined absolute left-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant/50 text-lg">search</span>
+          </div>
+          <button class="relative p-2 rounded-lg hover:bg-surface-container transition-colors">
+            <span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-error"></span>
+          </button>
+          <button onclick="switchView('usuarios','nav-usuarios')" class="w-8 h-8 judicial-gradient rounded-full flex items-center justify-center text-white text-xs font-bold hover:opacity-90 transition-opacity">JD</button>
+        </div>
+      </header>
+
+      <!-- ─── VIEW: DASHBOARD ─── -->
+      <main id="view-dashboard" class="view active p-8 flex-1">
+        <!-- Stat cards row -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6">
+            <div class="flex justify-between items-start mb-4">
+              <span class="material-symbols-outlined text-primary">folder_open</span>
+              <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Total</span>
+            </div>
+            <p class="text-4xl font-headline font-bold text-on-surface">47</p>
+            <p class="text-sm text-on-surface-variant mt-1 font-headline">Processos Ativos</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:75%"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6">
+            <div class="flex justify-between items-start mb-4">
+              <span class="material-symbols-outlined text-primary">schedule</span>
+              <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">24h</span>
+            </div>
+            <p class="text-4xl font-headline font-bold text-on-surface">3</p>
+            <p class="text-sm text-on-surface-variant mt-1 font-headline">Prazos Críticos</p>
+            <div class="progress-bar mt-4"><div class="progress-fill bg-error" style="width:30%; background:#ba1a1a;"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6">
+            <div class="flex justify-between items-start mb-4">
+              <span class="material-symbols-outlined text-primary">description</span>
+              <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Pendente</span>
+            </div>
+            <p class="text-4xl font-headline font-bold text-on-surface">12</p>
+            <p class="text-sm text-on-surface-variant mt-1 font-headline">Docs para OCR</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:55%"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6">
+            <div class="flex justify-between items-start mb-4">
+              <span class="material-symbols-outlined text-primary">verified</span>
+              <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">CAMEB</span>
+            </div>
+            <p class="text-4xl font-headline font-bold text-on-surface">94%</p>
+            <p class="text-sm text-on-surface-variant mt-1 font-headline">Conformidade</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:94%"></div></div>
+          </div>
+        </div>
+
+        <!-- Main grid -->
+        <div class="grid grid-cols-12 gap-6 mb-6">
+          <!-- Alert block -->
+          <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline/5 rounded p-6">
+            <div class="flex items-center justify-between mb-6">
+              <h4 class="text-xl font-headline font-bold">Alertas Prioritários</h4>
+              <button onclick="switchView('processos','nav-processos')" class="text-primary text-xs font-semibold flex items-center gap-1 hover:underline">
+                Ver todos <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-surface-container p-5 rounded border border-outline/5 flex gap-4 items-center">
+                <div class="w-11 h-11 rounded-full bg-error-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-error-container">schedule</span>
+                </div>
+                <div>
+                  <p class="text-2xl font-bold text-on-surface">3</p>
+                  <p class="text-sm text-on-surface-variant">Processos com prazo em 24h</p>
+                </div>
+              </div>
+              <div class="bg-surface-container p-5 rounded border border-outline/5 flex gap-4 items-center">
+                <div class="w-11 h-11 rounded-full bg-error-container flex items-center justify-center">
+                  <span class="material-symbols-outlined text-on-error-container">report_problem</span>
+                </div>
+                <div>
+                  <p class="text-2xl font-bold text-on-surface">1</p>
+                  <p class="text-sm text-on-surface-variant">Não conformidade CAMEB</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- CTA recommendation -->
+          <section class="col-span-12 lg:col-span-4 bg-primary-container text-on-primary-container rounded p-7 relative overflow-hidden flex flex-col">
+            <div class="relative z-10 flex flex-col h-full">
+              <h4 class="text-lg font-headline font-bold mb-4 text-white">Recomendações Proativas</h4>
+              <div class="mt-auto">
+                <div class="bg-white/10 backdrop-blur-md p-5 rounded border border-white/20">
+                  <span class="text-[9px] uppercase tracking-widest opacity-80 block mb-2 font-body text-white">EAD Especialização</span>
+                  <p class="font-headline text-base font-semibold leading-snug text-white">Módulo 3: Mediação Predial</p>
+                  <p class="text-[11px] mt-2 opacity-90 font-body text-white/80">Com base em seus processos ativos recentes de direitos reais.</p>
+                  <button onclick="switchView('ead','nav-ead')" class="mt-5 w-full py-2 bg-white text-primary-container font-bold rounded text-xs hover:scale-[1.02] transition-transform">Iniciar Módulo</button>
+                </div>
+              </div>
+            </div>
+            <div class="absolute -bottom-10 -right-10 opacity-10 rotate-12">
+              <span class="material-symbols-outlined text-[160px] text-white">school</span>
+            </div>
+          </section>
+        </div>
+
+        <!-- Process summary + activity -->
+        <div class="grid grid-cols-12 gap-6 mb-6">
+          <section class="col-span-12 grid grid-cols-3 gap-6">
+            <div class="bg-surface-container-lowest border border-outline/5 rounded p-7">
+              <div class="flex justify-between items-center mb-4">
+                <span class="material-symbols-outlined text-primary">handshake</span>
+                <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Fase</span>
+              </div>
+              <p class="text-4xl font-headline font-bold text-on-surface">12</p>
+              <h5 class="text-lg font-medium text-on-surface-variant font-headline mt-1">Conciliação</h5>
+              <div class="progress-bar mt-5"><div class="progress-fill" style="width:40%"></div></div>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline/5 rounded p-7">
+              <div class="flex justify-between items-center mb-4">
+                <span class="material-symbols-outlined text-primary">gavel</span>
+                <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Em Curso</span>
+              </div>
+              <p class="text-4xl font-headline font-bold text-on-surface">08</p>
+              <h5 class="text-lg font-medium text-on-surface-variant font-headline mt-1">Instrução</h5>
+              <div class="progress-bar mt-5"><div class="progress-fill" style="width:65%"></div></div>
+            </div>
+            <div class="bg-surface-container-lowest border border-outline/5 rounded p-7">
+              <div class="flex justify-between items-center mb-4">
+                <span class="material-symbols-outlined text-primary">edit_note</span>
+                <span class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest">Aguardando</span>
+              </div>
+              <p class="text-4xl font-headline font-bold text-on-surface">05</p>
+              <h5 class="text-lg font-medium text-on-surface-variant font-headline mt-1">Sentença</h5>
+              <div class="progress-bar mt-5"><div class="progress-fill" style="width:20%"></div></div>
+            </div>
+          </section>
+
+          <!-- Recent activity -->
+          <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline/5 rounded p-7">
+            <div class="flex justify-between items-center mb-6">
+              <h4 class="text-xl font-headline font-bold">Atividade Recente</h4>
+              <button onclick="switchView('processos','nav-processos')" class="text-primary text-xs font-semibold flex items-center gap-1 hover:underline">
+                Ver arquivo completo <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </button>
+            </div>
+            <div class="space-y-5">
+              <div class="flex gap-5 pb-5 border-b border-surface-container">
+                <div class="flex-shrink-0 w-11 h-11 rounded bg-surface-container flex items-center justify-center border border-outline/10">
+                  <span class="material-symbols-outlined text-primary">upload_file</span>
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-start">
+                    <p class="font-bold text-on-surface text-sm">Novo Memorial Protocolado</p>
+                    <span class="text-[9px] text-on-surface-variant uppercase">Há 24 min</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant mt-1">Caso #TRB-2023-091 — Requerente: Solar Tech Indústria</p>
+                </div>
+              </div>
+              <div class="flex gap-5 pb-5 border-b border-surface-container">
+                <div class="flex-shrink-0 w-11 h-11 rounded bg-surface-container flex items-center justify-center border border-outline/10">
+                  <span class="material-symbols-outlined text-primary">event_available</span>
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-start">
+                    <p class="font-bold text-on-surface text-sm">Audiência de Conciliação Agendada</p>
+                    <span class="text-[9px] text-on-surface-variant uppercase">Há 2 horas</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant mt-1">Caso #TRB-2023-088 — Data: 18/10/2023 às 14:00</p>
+                </div>
+              </div>
+              <div class="flex gap-5">
+                <div class="flex-shrink-0 w-11 h-11 rounded bg-surface-container flex items-center justify-center border border-outline/10">
+                  <span class="material-symbols-outlined text-primary">verified_user</span>
+                </div>
+                <div class="flex-grow">
+                  <div class="flex justify-between items-start">
+                    <p class="font-bold text-on-surface text-sm">Assinatura Digital Validada</p>
+                    <span class="text-[9px] text-on-surface-variant uppercase">Há 5 horas</span>
+                  </div>
+                  <p class="text-xs text-on-surface-variant mt-1">Documento: Sentença de Mérito — Caso #TRB-2022-144</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Document generation CTA card -->
+          <section class="col-span-12 lg:col-span-4 glass-card border border-outline/10 rounded p-7 flex flex-col items-center text-center shadow-sm">
+            <div class="w-14 h-18 border border-surface-container rounded relative flex items-center justify-center mb-5 bg-white shadow-sm overflow-hidden" style="width:56px;height:72px;">
+              <span class="material-symbols-outlined text-primary/20 text-3xl">description</span>
+              <div class="absolute bottom-1 right-1 w-5 h-5 rounded-full judicial-gradient flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-[10px]" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 20;">bolt</span>
+              </div>
+            </div>
+            <h4 class="text-xl font-headline font-bold mb-2 text-on-surface">Redação Assistida</h4>
+            <p class="text-on-surface-variant text-xs mb-7 leading-relaxed">Utilize modelos validados pelo conselho superior para redigir atas e sentenças com maior celeridade jurídica.</p>
+            <button onclick="switchView('documentos','nav-documentos')" class="mt-auto w-full judicial-gradient text-white py-3 rounded font-bold shadow-md hover:opacity-90 transition-all flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-sm">auto_awesome</span>
+              Gerar com IA
+            </button>
+            <p class="text-[9px] uppercase tracking-widest text-on-surface-variant/60 mt-4">Padrão TJAEM-2023 v.4.1</p>
+          </section>
+        </div>
+      </main>
+
+      <!-- ─── VIEW: PROCESSOS ─── -->
+      <main id="view-processos" class="view p-8 flex-1">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h3 class="font-headline text-3xl font-bold text-on-surface">Gestão de Processos</h3>
+            <p class="text-sm text-on-surface-variant mt-1">Arquivo central de arbitragens e mediações ativas</p>
+          </div>
+          <button class="judicial-gradient text-white px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all active:scale-95">
+            <span class="material-symbols-outlined text-sm">add</span>
+            Novo Processo
+          </button>
+        </div>
+
+        <!-- Filters -->
+        <div class="flex gap-3 mb-6 flex-wrap">
+          <button class="px-5 py-2 rounded judicial-gradient text-white font-medium text-sm">Todos</button>
+          <button class="px-5 py-2 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-lowest transition-colors font-medium text-sm">Em Andamento</button>
+          <button class="px-5 py-2 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-lowest transition-colors font-medium text-sm">Urgente</button>
+          <button class="px-5 py-2 rounded bg-surface-container text-on-surface-variant hover:bg-surface-container-lowest transition-colors font-medium text-sm">Arquivado</button>
+        </div>
+
+        <div class="flex gap-6">
+          <!-- Main table -->
+          <div class="flex-1 overflow-hidden">
+            <div class="bg-surface-container-lowest rounded shadow-sm overflow-hidden border border-outline/5">
+              <table class="w-full text-left border-collapse">
+                <thead class="bg-surface-container text-on-surface-variant">
+                  <tr>
+                    <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Nº Processo</th>
+                    <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Partes Envolvidas</th>
+                    <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Tipo de Disputa</th>
+                    <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Status</th>
+                    <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Última Movimentação</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                    <td class="px-6 py-5"><span class="font-headline font-bold text-primary">2023.08.0122</span></td>
+                    <td class="px-6 py-5"><div class="flex flex-col"><span class="text-sm font-semibold text-on-surface">Alpha Logística LTDA</span><span class="text-[11px] text-on-surface-variant">vs. Cond. Parque das Flores</span></div></td>
+                    <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Imobiliário / Condominial</span></td>
+                    <td class="px-6 py-5"><span class="px-3 py-1 rounded pill-conciliacao text-[10px] font-bold uppercase tracking-wider">Conciliação</span></td>
+                    <td class="px-6 py-5"><span class="text-xs text-on-surface-variant italic">Há 2 horas · Petição Inicial</span></td>
+                  </tr>
+                  <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                    <td class="px-6 py-5"><span class="font-headline font-bold text-primary">2023.05.0094</span></td>
+                    <td class="px-6 py-5"><div class="flex flex-col"><span class="text-sm font-semibold text-on-surface">Banco Centenário S.A.</span><span class="text-[11px] text-on-surface-variant">vs. Marina Silva Souza</span></div></td>
+                    <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Direito Bancário</span></td>
+                    <td class="px-6 py-5"><span class="px-3 py-1 rounded pill-instrucao text-[10px] font-bold uppercase tracking-wider">Instrução</span></td>
+                    <td class="px-6 py-5"><span class="text-xs text-on-surface-variant italic">Ontem · Audiência Gravada</span></td>
+                  </tr>
+                  <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                    <td class="px-6 py-5"><span class="font-headline font-bold text-primary">2023.02.0041</span></td>
+                    <td class="px-6 py-5"><div class="flex flex-col"><span class="text-sm font-semibold text-on-surface">Construtora Horizon</span><span class="text-[11px] text-on-surface-variant">vs. Município de São Paulo</span></div></td>
+                    <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Contratos Públicos</span></td>
+                    <td class="px-6 py-5"><span class="px-3 py-1 rounded pill-urgente text-[10px] font-bold uppercase tracking-wider">Urgente</span></td>
+                    <td class="px-6 py-5"><span class="text-xs text-on-surface-variant italic">Há 15 min · Liminar Indeferida</span></td>
+                  </tr>
+                  <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                    <td class="px-6 py-5"><span class="font-headline font-bold text-primary">2022.11.0211</span></td>
+                    <td class="px-6 py-5"><div class="flex flex-col"><span class="text-sm font-semibold text-on-surface">Joana Dark Alimentos</span><span class="text-[11px] text-on-surface-variant">vs. Distribuidora Sul</span></div></td>
+                    <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Comercial / Logística</span></td>
+                    <td class="px-6 py-5"><span class="px-3 py-1 rounded pill-sentenca text-[10px] font-bold uppercase tracking-wider">Sentença</span></td>
+                    <td class="px-6 py-5"><span class="text-xs text-on-surface-variant italic">Há 3 dias · Sentença Assinada</span></td>
+                  </tr>
+                  <tr class="process-row transition-colors">
+                    <td class="px-6 py-5"><span class="font-headline font-bold text-primary">2022.09.0178</span></td>
+                    <td class="px-6 py-5"><div class="flex flex-col"><span class="text-sm font-semibold text-on-surface">TechVerde Soluções</span><span class="text-[11px] text-on-surface-variant">vs. Petro Energia S.A.</span></div></td>
+                    <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Societário / M&amp;A</span></td>
+                    <td class="px-6 py-5"><span class="px-3 py-1 rounded pill-conciliacao text-[10px] font-bold uppercase tracking-wider">Conciliação</span></td>
+                    <td class="px-6 py-5"><span class="text-xs text-on-surface-variant italic">Há 1 semana · Proposta Aceita</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- CTA footer -->
+            <div class="mt-6 bg-surface-container-lowest rounded border border-outline/5 p-7 flex items-center justify-between shadow-sm">
+              <div>
+                <h2 class="font-headline text-xl font-bold text-primary mb-1">Certificação Digital e Assinatura de Termos</h2>
+                <p class="text-sm text-on-surface-variant leading-relaxed">Prepare documentos arbitrais com validade jurídica instantânea.</p>
+              </div>
+              <button onclick="switchView('documentos','nav-documentos')" class="judicial-gradient text-white px-7 py-3 rounded font-bold text-sm hover:opacity-90 active:scale-95 transition-all whitespace-nowrap ml-6">
+                Gerar Termo de Audiência
+              </button>
+            </div>
+          </div>
+
+          <!-- Sidebar column -->
+          <aside class="w-64 flex-shrink-0 flex flex-col gap-5">
+            <div class="glass-card border border-outline/10 rounded p-5 shadow-sm">
+              <div class="flex items-center gap-3 mb-4">
+                <div class="w-9 h-9 rounded bg-primary/10 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-primary">auto_awesome</span>
+                </div>
+                <h3 class="font-headline text-base font-bold text-primary">Próximo Passo</h3>
+              </div>
+              <div class="bg-surface-container p-4 rounded border border-outline/10">
+                <p class="text-xs font-bold text-on-surface uppercase mb-1">Processo 2023.08.0122</p>
+                <p class="text-xs text-on-surface-variant mb-4">A disputa condominial requer a juntada da Ata de Assembleia original.</p>
+                <button onclick="switchView('documentos','nav-documentos')" class="w-full py-2 bg-primary/10 hover:bg-primary/20 text-primary font-bold text-xs rounded transition-colors flex items-center justify-center gap-2">
+                  <span class="material-symbols-outlined text-sm">upload_file</span>
+                  Solicitar Documento
+                </button>
+              </div>
+            </div>
+
+            <div class="relative overflow-hidden p-5 rounded bg-on-surface text-surface shadow-lg group cursor-pointer" onclick="switchView('ead','nav-ead')">
+              <div class="relative z-10 flex flex-col gap-3">
+                <span class="px-2 py-0.5 rounded bg-primary-container text-white text-[9px] font-black uppercase w-fit">EAD Sugerido</span>
+                <h3 class="font-headline text-base font-bold leading-tight">Mediação Predial e Resolução de Conflitos</h3>
+                <p class="text-xs text-surface/70">Aperfeiçoe sua técnica para o processo em curso.</p>
+                <span class="text-primary-container text-xs font-bold flex items-center gap-1 hover:underline mt-1">
+                  Iniciar Módulo <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="p-5 rounded bg-surface-container-lowest border border-outline/5">
+              <p class="text-[9px] font-bold text-on-surface-variant uppercase tracking-widest mb-3">Resumo Semanal</p>
+              <div class="grid grid-cols-2 gap-4">
+                <div><p class="text-2xl font-headline font-bold text-on-surface">12</p><p class="text-[10px] text-on-surface-variant">Audiências</p></div>
+                <div><p class="text-2xl font-headline font-bold text-primary">04</p><p class="text-[10px] text-on-surface-variant">Sentenças pend.</p></div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      <!-- ─── VIEW: DOCUMENTOS OCR ─── -->
+      <main id="view-documentos" class="view p-8 flex-1">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h3 class="font-headline text-3xl font-bold text-on-surface">Central de Documentos &amp; OCR</h3>
+            <p class="text-sm text-on-surface-variant mt-1">Capture, processe e assine documentos com IA jurídica</p>
+          </div>
+          <button class="judicial-gradient text-white px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all active:scale-95">
+            <span class="material-symbols-outlined text-sm">upload_file</span>
+            Enviar Documento
+          </button>
+        </div>
+
+        <div class="grid grid-cols-12 gap-6">
+          <!-- Doc library -->
+          <section class="col-span-12 lg:col-span-4">
+            <div class="bg-surface-container-lowest border border-outline/5 rounded shadow-sm p-6">
+              <h4 class="font-headline font-bold text-on-surface mb-5">Tipos de Documento</h4>
+              <div class="space-y-3">
+                <div class="flex items-center gap-3 p-3 rounded hover:bg-surface-container transition-colors cursor-pointer">
+                  <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">gavel</span></div>
+                  <div><p class="text-sm font-bold text-on-surface">Laudos Arbitrais</p><p class="text-xs text-on-surface-variant">23 documentos</p></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded hover:bg-surface-container transition-colors cursor-pointer">
+                  <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">handshake</span></div>
+                  <div><p class="text-sm font-bold text-on-surface">Atas de Audiência</p><p class="text-xs text-on-surface-variant">41 documentos</p></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded hover:bg-surface-container transition-colors cursor-pointer">
+                  <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">contract</span></div>
+                  <div><p class="text-sm font-bold text-on-surface">Termos de Adesão</p><p class="text-xs text-on-surface-variant">17 documentos</p></div>
+                </div>
+                <div class="flex items-center gap-3 p-3 rounded hover:bg-surface-container transition-colors cursor-pointer">
+                  <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center"><span class="material-symbols-outlined text-primary">draft</span></div>
+                  <div><p class="text-sm font-bold text-on-surface">Minutas em Edição</p><p class="text-xs text-on-surface-variant">5 documentos</p></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Document editor -->
+          <section class="col-span-12 lg:col-span-8 bg-surface-container-lowest border border-outline/5 rounded shadow-sm p-7">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 mb-8">
+              <div>
+                <span class="judicial-gradient text-white px-3 py-1 rounded text-[9px] font-bold uppercase tracking-widest mb-3 inline-block">Editor de Documentos</span>
+                <h3 class="font-headline text-3xl font-bold text-on-surface">Minuta em Edição</h3>
+                <p class="text-on-surface-variant mt-1 text-sm italic">Revise e ajuste antes do fechamento do processo.</p>
+              </div>
+              <div class="flex gap-3">
+                <button class="bg-surface-container border border-primary/20 px-5 py-2 rounded font-medium text-sm text-primary hover:bg-surface-container-lowest transition-colors">Salvar Rascunho</button>
+                <button class="judicial-gradient text-white px-7 py-2 rounded font-bold text-sm hover:opacity-90 active:scale-95 transition-all">Finalizar e Exportar</button>
+              </div>
+            </div>
+
+            <div class="bg-white border border-outline/10 shadow-xl p-10 min-h-96 relative rounded">
+              <div class="absolute top-8 right-8 opacity-5 pointer-events-none">
+                <span class="material-symbols-outlined text-9xl">gavel</span>
+              </div>
+              <div class="font-headline text-center mb-12">
+                <h4 class="text-base font-bold uppercase tracking-widest text-on-surface">Tribunal de Justiça Arbitral e Mediação</h4>
+                <p class="text-xs italic text-on-surface-variant mt-1">Conselho Superior de Arbitragem · Instituído em 2024</p>
+              </div>
+              <div class="font-body">
+                <p class="text-sm leading-relaxed text-center mb-6 font-bold uppercase underline">TERMO DE ADESÃO E COMPROMISSO ARBITRAL</p>
+                <p class="text-sm leading-relaxed text-justify mb-5">Pelo presente instrumento particular, as partes abaixo qualificadas, livremente e de comum acordo, submetem à jurisdição do <strong>TJAEM</strong> as controvérsias oriundas do contrato ora anexado, regendo-se pelas normas vigentes deste Tribunal.</p>
+                <p class="text-sm leading-relaxed text-justify mb-5"><strong>PARTE ADERENTE:</strong> Arthur Schopenhauer, CPF nº 213.984.102-11, residente e domiciliado em Alameda das Orquídeas, 882, Jardins — São Paulo, SP.</p>
+                <p class="text-sm leading-relaxed text-justify">O aderente declara ter lido e compreendido integralmente os regulamentos de arbitragem desta corte, aceitando sem reservas as condições de processamento e celeridade processual propostas pelo TJAEM.</p>
+                <div class="mt-16 flex justify-between gap-8">
+                  <div class="flex flex-col items-center flex-1">
+                    <div class="w-full border-b border-on-surface mb-2"></div>
+                    <span class="text-[9px] uppercase text-on-surface-variant font-bold tracking-widest">Assinatura do Aderente</span>
+                  </div>
+                  <div class="flex flex-col items-center flex-1">
+                    <div class="w-full border-b border-on-surface mb-2"></div>
+                    <span class="text-[9px] uppercase text-on-surface-variant font-bold tracking-widest">Assinatura da Corte (TJAEM)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ─── VIEW: EAD / MARKETING ─── -->
+      <main id="view-ead" class="view p-8 flex-1">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h3 class="font-headline text-3xl font-bold text-on-surface">EAD &amp; Marketing do Associado</h3>
+            <p class="text-sm text-on-surface-variant mt-1">Capacitação contínua e comunicação institucional</p>
+          </div>
+          <button class="judicial-gradient text-white px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined text-sm">add</span>
+            Novo Módulo
+          </button>
+        </div>
+
+        <!-- Course grid -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+          <div class="bg-surface-container-lowest border border-outline/5 rounded shadow-sm overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
+            <div class="relative h-40 overflow-hidden bg-on-surface">
+              <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                <span class="material-symbols-outlined text-white" style="font-size:5rem">gavel</span>
+              </div>
+              <div class="absolute bottom-3 left-3"><span class="bg-primary-container text-white text-[9px] font-bold uppercase px-2 py-1 rounded">Em Destaque</span></div>
+            </div>
+            <div class="p-5">
+              <h4 class="font-headline font-bold text-on-surface mb-2">Mediação Predial e Resolução de Conflitos</h4>
+              <p class="text-xs text-on-surface-variant mb-4">Módulo avançado com foco em arbitragem condominial e imobiliária.</p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">timer</span><span class="text-xs text-on-surface-variant">8h</span></div>
+                <button class="judicial-gradient text-white text-xs font-bold px-4 py-1.5 rounded hover:opacity-90">Iniciar</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest border border-outline/5 rounded shadow-sm overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
+            <div class="relative h-40 overflow-hidden bg-stone-800">
+              <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                <span class="material-symbols-outlined text-white" style="font-size:5rem">balance</span>
+              </div>
+              <div class="absolute bottom-3 left-3"><span class="bg-secondary-container text-on-secondary-container text-[9px] font-bold uppercase px-2 py-1 rounded">Novo</span></div>
+            </div>
+            <div class="p-5">
+              <h4 class="font-headline font-bold text-on-surface mb-2">Direito Processual Arbitral — Módulo I</h4>
+              <p class="text-xs text-on-surface-variant mb-4">Fundamentos processuais aplicados à arbitragem nacional e internacional.</p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">timer</span><span class="text-xs text-on-surface-variant">12h</span></div>
+                <button class="bg-surface-container text-on-surface text-xs font-bold px-4 py-1.5 rounded hover:bg-surface-container-lowest transition-colors border border-outline/10">Inscrever</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-surface-container-lowest border border-outline/5 rounded shadow-sm overflow-hidden group cursor-pointer hover:shadow-md transition-shadow">
+            <div class="relative h-40 overflow-hidden" style="background:#5f5e5e;">
+              <div class="absolute inset-0 flex items-center justify-center opacity-20">
+                <span class="material-symbols-outlined text-white" style="font-size:5rem">verified</span>
+              </div>
+              <div class="absolute bottom-3 left-3"><span class="bg-error-container text-on-error-container text-[9px] font-bold uppercase px-2 py-1 rounded">Obrigatório</span></div>
+            </div>
+            <div class="p-5">
+              <h4 class="font-headline font-bold text-on-surface mb-2">Conformidade CAMEB — Atualização 2024</h4>
+              <p class="text-xs text-on-surface-variant mb-4">Atualização obrigatória sobre as novas diretrizes do conselho superior.</p>
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-2"><span class="material-symbols-outlined text-primary text-sm">timer</span><span class="text-xs text-on-surface-variant">4h</span></div>
+                <button onclick="switchView('conformidade','nav-conformidade')" class="judicial-gradient text-white text-xs font-bold px-4 py-1.5 rounded hover:opacity-90">Iniciar</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter CTA -->
+        <div class="bg-primary-container rounded p-8 flex items-center justify-between">
+          <div class="max-w-xl">
+            <h2 class="font-headline text-2xl font-bold text-white mb-2">Newsletter Institucional TJAEM</h2>
+            <p class="text-white/80 text-sm leading-relaxed">Comunique novidades, sentenças de destaque e cursos aos associados com um clique.</p>
+          </div>
+          <button class="bg-white text-primary-container px-8 py-3 rounded font-bold text-sm hover:scale-[1.02] active:scale-95 transition-all whitespace-nowrap ml-8">
+            Criar Newsletter
+          </button>
+        </div>
+      </main>
+
+      <!-- ─── VIEW: CONFORMIDADE ─── -->
+      <main id="view-conformidade" class="view p-8 flex-1">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h3 class="font-headline text-3xl font-bold text-on-surface">Relatório de Conformidade CAMEB</h3>
+            <p class="text-sm text-on-surface-variant mt-1">Auditoria e conformidade institucional — 3º Trimestre 2024</p>
+          </div>
+          <button class="judicial-gradient text-white px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined text-sm">download</span>
+            Exportar PDF
+          </button>
+        </div>
+
+        <!-- Score cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-5 mb-8">
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6 text-center">
+            <p class="text-5xl font-headline font-bold text-primary">94%</p>
+            <p class="text-sm text-on-surface-variant mt-2">Score Geral CAMEB</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:94%"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6 text-center">
+            <p class="text-5xl font-headline font-bold text-on-surface">47</p>
+            <p class="text-sm text-on-surface-variant mt-2">Processos Auditados</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:100%"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6 text-center">
+            <p class="text-5xl font-headline font-bold text-on-surface">3</p>
+            <p class="text-sm text-on-surface-variant mt-2">Não Conformidades</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:6%; background:#ba1a1a;"></div></div>
+          </div>
+          <div class="bg-surface-container-lowest border border-outline/5 rounded p-6 text-center">
+            <p class="text-5xl font-headline font-bold text-on-surface">12</p>
+            <p class="text-sm text-on-surface-variant mt-2">Dias até Próxima Auditoria</p>
+            <div class="progress-bar mt-4"><div class="progress-fill" style="width:60%"></div></div>
+          </div>
+        </div>
+
+        <!-- Compliance table -->
+        <div class="bg-surface-container-lowest rounded border border-outline/5 shadow-sm p-7 mb-6">
+          <h4 class="font-headline text-xl font-bold mb-6">Itens de Verificação</h4>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between p-4 bg-surface-container rounded">
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-green-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                <div>
+                  <p class="text-sm font-bold text-on-surface">Cláusula Compromissória</p>
+                  <p class="text-xs text-on-surface-variant">Todos os processos possuem cláusula vigente</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold uppercase rounded">Conforme</span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-surface-container rounded">
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-green-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                <div>
+                  <p class="text-sm font-bold text-on-surface">Habilitação dos Árbitros</p>
+                  <p class="text-xs text-on-surface-variant">Certificados CAMEB atualizados para todos os árbitros</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold uppercase rounded">Conforme</span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-error-container/30 border border-error/20 rounded">
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-error" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">warning</span>
+                <div>
+                  <p class="text-sm font-bold text-on-surface">Prazo de Sentença — Caso 2023.02.0041</p>
+                  <p class="text-xs text-on-surface-variant">Prazo regulamentar de 30 dias excedido em 4 dias</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-error-container text-on-error-container text-[10px] font-bold uppercase rounded">Não Conforme</span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-surface-container rounded">
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-green-600" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24;">check_circle</span>
+                <div>
+                  <p class="text-sm font-bold text-on-surface">Protocolo de Sigilo Processual</p>
+                  <p class="text-xs text-on-surface-variant">Termos de confidencialidade assinados por todas as partes</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-green-100 text-green-800 text-[10px] font-bold uppercase rounded">Conforme</span>
+            </div>
+            <div class="flex items-center justify-between p-4 bg-surface-container rounded">
+              <div class="flex items-center gap-4">
+                <span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+                <div>
+                  <p class="text-sm font-bold text-on-surface">Registro de Honorários</p>
+                  <p class="text-xs text-on-surface-variant">Aguardando validação de 2 processos</p>
+                </div>
+              </div>
+              <span class="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] font-bold uppercase rounded">Pendente</span>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <!-- ─── VIEW: USUÁRIOS ─── -->
+      <main id="view-usuarios" class="view p-8 flex-1">
+        <div class="flex items-start justify-between mb-8">
+          <div>
+            <h3 class="font-headline text-3xl font-bold text-on-surface">Gestão de Usuários &amp; Associados</h3>
+            <p class="text-sm text-on-surface-variant mt-1">Perfis, habilitações e acessos ao ecossistema TJAEM</p>
+          </div>
+          <button class="judicial-gradient text-white px-6 py-3 rounded font-bold text-sm flex items-center gap-2 hover:opacity-90 transition-all">
+            <span class="material-symbols-outlined text-sm">person_add</span>
+            Novo Usuário
+          </button>
+        </div>
+
+        <div class="bg-surface-container-lowest rounded border border-outline/5 shadow-sm overflow-hidden">
+          <table class="w-full text-left border-collapse">
+            <thead class="bg-surface-container text-on-surface-variant">
+              <tr>
+                <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Usuário</th>
+                <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Função</th>
+                <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Habilitação CAMEB</th>
+                <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Processos Ativos</th>
+                <th class="px-6 py-4 uppercase tracking-wider font-bold text-[11px]">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                <td class="px-6 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 judicial-gradient rounded-full flex items-center justify-center text-white text-xs font-bold">JD</div>
+                    <div><p class="text-sm font-bold text-on-surface">João Dourado</p><p class="text-xs text-on-surface-variant">joao.dourado@tjaem.br</p></div>
+                  </div>
+                </td>
+                <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Árbitro Sênior</span></td>
+                <td class="px-6 py-5"><span class="text-xs text-on-surface font-mono bg-surface-container px-2 py-1 rounded">CAMEB-2024-0042</span></td>
+                <td class="px-6 py-5"><span class="text-sm font-bold text-on-surface">12</span></td>
+                <td class="px-6 py-5"><span class="px-3 py-1 rounded bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-wider">Ativo</span></td>
+              </tr>
+              <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                <td class="px-6 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-secondary rounded-full flex items-center justify-center text-white text-xs font-bold">MC</div>
+                    <div><p class="text-sm font-bold text-on-surface">Maria Clara Santos</p><p class="text-xs text-on-surface-variant">mclarasantos@tjaem.br</p></div>
+                  </div>
+                </td>
+                <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Mediadora</span></td>
+                <td class="px-6 py-5"><span class="text-xs text-on-surface font-mono bg-surface-container px-2 py-1 rounded">CAMEB-2024-0076</span></td>
+                <td class="px-6 py-5"><span class="text-sm font-bold text-on-surface">8</span></td>
+                <td class="px-6 py-5"><span class="px-3 py-1 rounded bg-green-100 text-green-800 text-[10px] font-bold uppercase tracking-wider">Ativo</span></td>
+              </tr>
+              <tr class="process-row transition-colors" style="border-bottom:1px solid #eeeeed">
+                <td class="px-6 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-stone-500 rounded-full flex items-center justify-center text-white text-xs font-bold">RL</div>
+                    <div><p class="text-sm font-bold text-on-surface">Roberto Lima</p><p class="text-xs text-on-surface-variant">roberto.lima@tjaem.br</p></div>
+                  </div>
+                </td>
+                <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Secretário Processual</span></td>
+                <td class="px-6 py-5"><span class="text-xs text-on-surface font-mono bg-surface-container px-2 py-1 rounded">CAMEB-2023-0198</span></td>
+                <td class="px-6 py-5"><span class="text-sm font-bold text-on-surface">22</span></td>
+                <td class="px-6 py-5"><span class="px-3 py-1 rounded bg-surface-variant text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">Pendente</span></td>
+              </tr>
+              <tr class="process-row transition-colors">
+                <td class="px-6 py-5">
+                  <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-error-container rounded-full flex items-center justify-center text-on-error-container text-xs font-bold">AF</div>
+                    <div><p class="text-sm font-bold text-on-surface">Ana Ferreira</p><p class="text-xs text-on-surface-variant">ana.ferreira@tjaem.br</p></div>
+                  </div>
+                </td>
+                <td class="px-6 py-5"><span class="text-sm text-on-surface-variant">Assistente Jurídico</span></td>
+                <td class="px-6 py-5"><span class="text-xs text-on-surface-variant/50 italic">Não habilitada</span></td>
+                <td class="px-6 py-5"><span class="text-sm font-bold text-on-surface">0</span></td>
+                <td class="px-6 py-5"><span class="px-3 py-1 rounded bg-error-container text-on-error-container text-[10px] font-bold uppercase tracking-wider">Inativo</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+
+      <!-- ─── FOOTER ─── -->
+      <footer class="border-t border-outline/10 px-8 py-5 flex flex-col md:flex-row justify-between items-center text-[10px] text-on-surface-variant uppercase tracking-widest font-medium gap-3">
+        <p>© 2024 TJAEM — Tribunal de Justiça Arbitral e Mediação. Jurisdição Integral.</p>
+        <div class="flex gap-6">
+          <a class="hover:text-primary transition-colors" href="#">Termos de Uso</a>
+          <a class="hover:text-primary transition-colors" href="#">Política de Privacidade</a>
+          <a class="hover:text-primary transition-colors" href="#">Suporte Técnico</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>
+
+<!-- Watermark -->
+<div id="app-watermark" class="fixed bottom-0 right-0 p-8 opacity-5 pointer-events-none hidden lg:block" style="display:none!important">
+  <span class="material-symbols-outlined text-primary" style="font-size:300px">gavel</span>
+</div>
+
+<script>
+  // ─── SPA State ───
+  let currentView = 'dashboard';
+
+  function switchView(viewId, navId) {
+    // Hide all views
+    document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+    // Remove active from all nav links
+    document.querySelectorAll('.nav-link').forEach(l => {
+      l.classList.remove('active-link');
+      l.classList.add('text-on-surface-variant');
+    });
+
+    // Show target view
+    const view = document.getElementById('view-' + viewId);
+    if (view) view.classList.add('active');
+
+    // Activate nav link
+    const nav = document.getElementById(navId);
+    if (nav) {
+      nav.classList.add('active-link');
+      nav.classList.remove('text-on-surface-variant');
+    }
+
+    // Update top bar labels
+    const titles = {
+      dashboard:    ['Dashboard Operacional', 'TJAEM · Painel Principal'],
+      processos:    ['Gestão de Processos', 'TJAEM · Arquivo de Arbitragens'],
+      documentos:   ['Central de Documentos & OCR', 'TJAEM · Edição e Assinatura'],
+      ead:          ['EAD & Marketing do Associado', 'TJAEM · Capacitação Contínua'],
+      conformidade: ['Conformidade CAMEB', 'TJAEM · Auditoria Institucional'],
+      usuarios:     ['Usuários & Associados', 'TJAEM · Gestão de Acesso'],
+    };
+    if (titles[viewId]) {
+      document.getElementById('page-title').textContent = titles[viewId][0];
+      document.getElementById('page-breadcrumb').textContent = titles[viewId][1];
+    }
+    currentView = viewId;
+    window.scrollTo(0,0);
+  }
+
+  // ─── Login ───
+  function doLogin() {
+    const btn = document.getElementById('btn-login');
+    btn.textContent = 'Autenticando…';
+    btn.disabled = true;
+    setTimeout(() => {
+      document.getElementById('view-login').classList.remove('active');
+      document.getElementById('view-login').style.display = 'none';
+      document.getElementById('app-shell').classList.remove('hidden');
+      switchView('dashboard', 'nav-dashboard');
+    }, 800);
+  }
+
+  // ─── Logout ───
+  function doLogout() {
+    document.getElementById('app-shell').classList.add('hidden');
+    const login = document.getElementById('view-login');
+    login.style.display = '';
+    login.classList.add('active');
+    const btn = document.getElementById('btn-login');
+    btn.textContent = 'Entrar no Sistema';
+    btn.disabled = false;
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+
+<html class="light" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#737272",
+                        "on-tertiary-container": "#faf8f7",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdcbe",
+                        "on-error": "#ffffff",
+                        "primary-container": "#a76100",
+                        "surface-container-low": "#f4f3f3",
+                        "surface-container": "#eeeeed",
+                        "surface-bright": "#faf9f9",
+                        "surface": "#faf9f9",
+                        "primary": "#844c00",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#2d1600",
+                        "on-surface-variant": "#534437",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed-variant": "#6a3c00",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-primary": "#ffb872",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#fff7f2",
+                        "inverse-on-surface": "#f1f0f0",
+                        "secondary-fixed": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-tint": "#8b5000",
+                        "surface-variant": "#e3e2e2",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "tertiary": "#5a5959",
+                        "primary-fixed-dim": "#ffb872",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "secondary-container": "#e5e2e1",
+                        "background": "#faf9f9",
+                        "outline-variant": "#d8c3b1",
+                        "outline": "#867465",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 195, 177, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- Sidebar Navigation -->
+<aside class="hidden md:flex flex-col h-screen w-72 fixed left-0 top-0 z-40 bg-stone-100 p-6 border-r border-stone-200/10">
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h2 class="font-serif text-amber-900 font-bold leading-tight">The Sovereign Archive</h2>
+<p class="text-[10px] uppercase tracking-widest text-stone-500 font-semibold">Judicial Ecosystem</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:translate-x-1 transition-transform duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-sm tracking-wide">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:translate-x-1 transition-transform duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="text-sm tracking-wide">Process Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:translate-x-1 transition-transform duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="folder_managed">folder_managed</span>
+<span class="text-sm tracking-wide">Document Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:translate-x-1 transition-transform duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="school">school</span>
+<span class="text-sm tracking-wide">EAD</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-amber-900 font-bold shadow-sm rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="analytics">analytics</span>
+<span class="text-sm tracking-wide">Compliance Reports</span>
+</a>
+</nav>
+<div class="mt-auto pt-6 border-t border-stone-200/20">
+<button class="w-full py-4 mb-6 bg-gradient-to-br from-primary to-primary-container text-white rounded-lg font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-95">
+                Generate Document
+            </button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="inventory_2">inventory_2</span>
+<span class="text-xs uppercase tracking-tighter">Archive</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-500 hover:text-stone-800 transition-colors" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="help_outline">help_outline</span>
+<span class="text-xs uppercase tracking-tighter">Help</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="md:ml-72 min-h-screen">
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-8 py-4 w-full bg-stone-50/80 backdrop-blur-md shadow-sm shadow-stone-200/50">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-serif italic text-stone-900">TJAEM Tribunal</span>
+<nav class="hidden lg:flex gap-6">
+<a class="text-stone-500 hover:text-amber-800 transition-colors text-sm font-medium" href="#">Legal Research</a>
+<a class="text-stone-500 hover:text-amber-800 transition-colors text-sm font-medium" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-500 hover:bg-stone-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:bg-stone-100 rounded-full transition-colors">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-stone-200">
+<img alt="Chief Arbitrator Profile" class="w-full h-full object-cover" data-alt="Close-up professional portrait of a senior legal official in a dark suit with a neutral, authoritative expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRZBIi6jJE4W3X5se69uf8bz6dsTwFpQNbRGolLq3377ZQnJl_3ONPQshrttAxlf6RrUHgGrdFDij3_v8CBpE97HfQC4fPYAWjYhTEO6J1tFDzSffdBK0WtJbXN1m7a-TkOrq3t3yyyMY_2PQ8h0rLhAa_f6dOQqK-jGTXSHZ_d3MYBd4dlH2WzSg6CQ5C2Tnq6wor8SgECNLteHlEm06cGT8HKGd8SKm-utmKEHdkhS0c3q5v4xL9SxaWp8R4dHSrbJqS4yjRA1op"/>
+</div>
+</div>
+</header>
+<!-- Report Content -->
+<div class="max-w-6xl mx-auto p-8 lg:p-12">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
+<div>
+<span class="text-primary font-bold tracking-[0.2em] text-xs uppercase mb-4 block">Institutional Report v4.2</span>
+<h1 class="text-5xl lg:text-6xl font-headline text-on-background leading-tight tracking-tight max-w-2xl">
+                        Relatório de Conformidade CAMEB
+                    </h1>
+</div>
+<div class="flex gap-3">
+<button class="px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium text-sm shadow-lg shadow-primary/10 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="picture_as_pdf">picture_as_pdf</span>
+                        Exportar PDF
+                    </button>
+<button class="px-6 py-3 border border-outline-variant/30 text-primary rounded-lg font-medium text-sm hover:bg-surface-container-low transition-colors">
+                        Agendar Disparo
+                    </button>
+</div>
+</div>
+<!-- Summary Table Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
+<!-- Conforme Card -->
+<div class="bg-surface-container-low p-8 rounded-xl flex items-start justify-between">
+<div>
+<p class="text-xs uppercase tracking-widest text-secondary font-bold mb-1">Status Legal</p>
+<h3 class="text-2xl font-headline text-on-surface mb-4">Regra Art. 12-LGPD</h3>
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+                            Conforme
+                        </div>
+</div>
+<div class="opacity-10">
+<span class="material-symbols-outlined text-6xl" data-icon="policy">policy</span>
+</div>
+</div>
+<!-- Não Conforme Card -->
+<div class="bg-surface-container-low p-8 rounded-xl flex items-start justify-between ring-1 ring-error/10">
+<div>
+<p class="text-xs uppercase tracking-widest text-secondary font-bold mb-1">Urgência Regulatória</p>
+<h3 class="text-2xl font-headline text-on-surface mb-4">Res. 05/2025</h3>
+<div class="inline-flex items-center gap-2 px-3 py-1 bg-error-container text-on-error-container rounded-full text-xs font-bold uppercase tracking-wider">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+                            Não Conforme - Urgente!
+                        </div>
+</div>
+<div class="text-error/10">
+<span class="material-symbols-outlined text-6xl" data-icon="gavel">gavel</span>
+</div>
+</div>
+</div>
+<!-- Main Content Columns -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+<!-- Recommendations Section (Left) -->
+<div class="lg:col-span-7">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-1 h-8 bg-primary"></div>
+<h2 class="text-3xl font-headline italic">Ação Recomendada</h2>
+</div>
+<div class="bg-surface-container-lowest glass-panel rounded-xl overflow-hidden shadow-sm">
+<div class="p-6 bg-primary/5 flex justify-between items-center">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary" data-icon="description">description</span>
+<span class="font-bold text-sm text-primary uppercase tracking-tight">termo_consentimento_v2.docx</span>
+</div>
+<a class="text-primary hover:underline text-xs font-bold flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                                BAIXAR MODELO
+                            </a>
+</div>
+<div class="p-4 space-y-2">
+<p class="text-xs text-on-surface-variant mb-4 px-2">8 processos identificados que requerem atualização imediata de termos:</p>
+<!-- Action List Items -->
+<div class="space-y-1">
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-9921</span>
+<span class="text-sm font-medium">Arbitragem Silva vs. Tecnológica S.A.</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-9945</span>
+<span class="text-sm font-medium">Mediação Imobiliária Central de Ativos</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-9982</span>
+<span class="text-sm font-medium">Consórcio Alpha - Revisão de Cláusulas</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-1002</span>
+<span class="text-sm font-medium">Dissolução Societária J. Borges Ltda.</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-1015</span>
+<span class="text-sm font-medium">Recuperação Extrajudicial Grupo Fênix</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-1029</span>
+<span class="text-sm font-medium">Litígio Marítimo Terminal Norte</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-1044</span>
+<span class="text-sm font-medium">Propriedade Intelectual Software X</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<div class="flex items-center justify-between p-3 hover:bg-surface-container-low rounded transition-colors group">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-mono text-outline">#TRB-1067</span>
+<span class="text-sm font-medium">Contrato Agrícola Safra 2024</span>
+</div>
+<span class="material-symbols-outlined text-xs opacity-0 group-hover:opacity-100 text-primary transition-opacity" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Jurisprudence Section (Right) -->
+<div class="lg:col-span-5">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-1 h-8 bg-tertiary"></div>
+<h2 class="text-3xl font-headline italic">Jurisprudência Relacionada</h2>
+</div>
+<div class="space-y-6">
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-outline-variant/30">
+<p class="text-xs font-bold text-secondary uppercase tracking-widest mb-2">STJ - RESP 1.234.567</p>
+<h4 class="text-lg font-headline leading-snug mb-3">Interpretação da validade de cláusulas compromissórias em contratos de adesão.</h4>
+<p class="text-sm text-on-surface-variant font-light italic">"A autonomia da vontade na arbitragem não exime a observância estrita aos novos parâmetros de proteção de dados..."</p>
+</div>
+<div class="relative pl-6 before:content-[''] before:absolute before:left-0 before:top-0 before:bottom-0 before:w-px before:bg-outline-variant/30">
+<p class="text-xs font-bold text-secondary uppercase tracking-widest mb-2">Tribunal CAMEB - Parecer 08/24</p>
+<h4 class="text-lg font-headline leading-snug mb-3">Uniformização de procedimentos para audiências virtuais e guarda de registros.</h4>
+<p class="text-sm text-on-surface-variant font-light italic">"A digitalização do acervo tribunalístico deve seguir o protocolo de criptografia assimétrica..."</p>
+</div>
+<!-- Specialized Document CTA -->
+<div class="mt-12 bg-white/50 border border-outline-variant/20 p-6 rounded-xl relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-xl font-headline mb-2">Parecer Técnico Completo</h3>
+<p class="text-xs text-on-surface-variant mb-6 leading-relaxed">Solicite uma análise detalhada dos impactos da Res. 05/2025 em todo o seu portfólio de processos ativos.</p>
+<button class="text-primary font-bold text-xs uppercase tracking-widest flex items-center gap-2 group">
+                                    Solicitar Agora 
+                                    <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="open_in_new">open_in_new</span>
+</button>
+</div>
+<div class="absolute -right-4 -bottom-4 opacity-5 pointer-events-none">
+<span class="material-symbols-outlined text-9xl" data-icon="history_edu">history_edu</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Floating Action Button (FAB) Suppressed on details as per instructions -->
+</div>
+</main>
+</body></html>

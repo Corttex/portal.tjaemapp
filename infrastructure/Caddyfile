@@ -1,0 +1,11 @@
+portal.tjaembrasil.com.br {
+    handle /automation/* {
+        reverse_proxy n8n:5678
+    }
+
+    handle {
+        root * /var/www/html
+        file_server browse
+        try_files {path} {path}/ /index.html
+    }
+}

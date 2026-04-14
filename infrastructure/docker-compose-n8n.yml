@@ -1,0 +1,44 @@
+version: "3"
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - ./public:/var/www/html:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+  n8n:
+    image: docker.n8n.io/n8nio/n8n
+    restart: always
+    expose:
+      - "5678"
+    environment:
+      - N8N_HOST=portal.tjaembrasil.com.br
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=https
+      - NODE_ENV=production
+      - WEBHOOK_URL=https://portal.tjaembrasil.com.br/automation/
+      - N8N_PATH=/automation/
+      - GENERIC_TIMEZONE=America/Sao_Paulo
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=tjaem-prod-db.c3yqqmqmct8g.sa-east-1.rds.amazonaws.com
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=postgres
+      - DB_POSTGRESDB_USER=tjaem_admin
+      - DB_POSTGRESDB_PASSWORD=TjAemProdDB123!
+      - N8N_ENCRYPTION_KEY=tjaem_super_secret_key_2026
+      - N8N_PROXY_HOPS=1
+    volumes:
+      - n8n_data:/home/node/.n8n
+
+volumes:
+  n8n_data:
+  caddy_data:
+  caddy_config:

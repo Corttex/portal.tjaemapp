@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-container": "#737272",
+                        "on-tertiary-container": "#faf8f7",
+                        "tertiary-fixed-dim": "#c8c6c6",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "surface-container-highest": "#e3e2e2",
+                        "on-error-container": "#93000a",
+                        "primary-fixed": "#ffdcbe",
+                        "on-error": "#ffffff",
+                        "primary-container": "#a76100",
+                        "surface-container-low": "#f4f3f3",
+                        "surface-container": "#eeeeed",
+                        "surface-bright": "#faf9f9",
+                        "surface": "#faf9f9",
+                        "primary": "#844c00",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#dadada",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#2d1600",
+                        "on-surface-variant": "#534437",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed-variant": "#6a3c00",
+                        "on-background": "#1a1c1c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "inverse-primary": "#ffb872",
+                        "secondary": "#5f5e5e",
+                        "on-primary-container": "#fff7f2",
+                        "inverse-on-surface": "#f1f0f0",
+                        "secondary-fixed": "#e5e2e1",
+                        "error": "#ba1a1a",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-tint": "#8b5000",
+                        "surface-variant": "#e3e2e2",
+                        "on-tertiary-fixed-variant": "#474747",
+                        "tertiary": "#5a5959",
+                        "primary-fixed-dim": "#ffb872",
+                        "on-surface": "#1a1c1c",
+                        "inverse-surface": "#2f3131",
+                        "secondary-container": "#e5e2e1",
+                        "background": "#faf9f9",
+                        "outline-variant": "#d8c3b1",
+                        "outline": "#867465",
+                        "error-container": "#ffdad6",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed": "#e4e2e1",
+                        "on-tertiary-fixed": "#1b1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-button {
+            background: linear-gradient(135deg, #844c00 0%, #a76100 100%);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(216, 195, 177, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-72 fixed left-0 top-0 z-40 bg-stone-100 flex flex-col p-6 border-r border-stone-200/10">
+<div class="mb-10">
+<h2 class="font-serif text-amber-900 font-bold text-xl">The Sovereign Archive</h2>
+<p class="text-stone-600 text-xs tracking-widest uppercase mt-1">Judicial Ecosystem</p>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:bg-stone-200/50 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-white text-amber-900 font-bold shadow-sm rounded-lg" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="text-sm font-medium">Process Management</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:bg-stone-200/50 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">folder_managed</span>
+<span class="text-sm font-medium">Document Center</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:bg-stone-200/50 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">school</span>
+<span class="text-sm font-medium">EAD</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-stone-600 hover:bg-stone-200/50 hover:translate-x-1 transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm font-medium">Compliance Reports</span>
+</a>
+</nav>
+<div class="pt-6 border-t border-stone-200/30 space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-stone-600 hover:bg-stone-200/50 rounded-lg transition-all text-sm" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+                Archive
+            </a>
+<a class="flex items-center gap-3 px-4 py-2 text-stone-600 hover:bg-stone-200/50 rounded-lg transition-all text-sm" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+                Help
+            </a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-72 min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="sticky top-0 z-50 bg-stone-50/80 backdrop-blur-md flex justify-between items-center px-8 py-4 w-full shadow-sm shadow-stone-200/50">
+<div class="flex items-center gap-8">
+<h1 class="text-2xl font-serif italic text-stone-900">TJAEM Tribunal</h1>
+<nav class="hidden md:flex gap-6">
+<a class="text-amber-900 font-semibold border-b-2 border-amber-800 transition-colors py-1" href="#">Legal Research</a>
+<a class="text-stone-500 hover:text-amber-800 transition-colors py-1" href="#">Support</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-stone-500 hover:text-amber-800 transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-stone-500 hover:text-amber-800 transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<div class="h-10 w-10 rounded-full overflow-hidden border border-amber-800/20">
+<img class="h-full w-full object-cover" data-alt="portrait of a professional male arbitrator in a formal suit with a neutral dignified expression" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbHUfSQq5q31xLlMj7XIOiBLZU9A7QZk8oMkQH6T4B5qW_MW2IZa4R0yxc8LzjkSPr3_BmKuDDD1XmKMzgKpCQUiWmqp0zqXop5WWLrpDKtHGoxMBq0uuoG90TlcDy2alXfYFOxbec3u5Vy_OUVaLsfRe4cGCv86muXKuHfL5_ouHGRVettKdbFEZBI5eTFYmQJrhudpqJGQMvTeXvyY6mrhrpivezM_RjksNQCB0UKN4F-7Zgnq6M8kbTU4gP4le2aiyu_g7QzlDj"/>
+</div>
+</div>
+</header>
+<div class="p-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div class="space-y-2">
+<div class="flex items-center gap-3">
+<span class="px-3 py-1 bg-primary-fixed text-on-primary-fixed text-[10px] font-bold tracking-widest uppercase rounded-full">Active Case</span>
+<span class="text-on-surface-variant font-mono text-sm tracking-tighter">ID #2026-045</span>
+</div>
+<h2 class="text-5xl font-headline font-semibold text-on-surface leading-tight tracking-tight">Medição de Conflito Territorial: Vale das Sombras</h2>
+<p class="text-on-surface-variant max-w-2xl text-lg font-serif italic">Inquiry regarding property demarcation and indigenous corridor preservation rights in the central province.</p>
+</div>
+<div class="flex flex-col items-end gap-3">
+<div class="flex -space-x-2">
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="professional woman in corporate attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAwGzHIWXS3Zpy5f1m967F90ZvtFW2n92JMLLsA4WsF-EsVoRSNYKoRWyJjh37WxTDRgMixZYiFiV-iAJMBFO6ac5kZUXL8MyPvYNr1WZxJng6ZeG0OBqbhJeqSeO8xI2LFt5oaEV74Cvp1j7S_z7vq932YQEHyYvyHpX7N_vtIMG2BE_F12A-TbBM8F50fW0SMSwx3CfG8y11NU8EpGV-Dd9KpAUwIDGLOBo4evrPhe1DeghVWnGaetb76KgBXFNfC7xVM3liEU2bR"/>
+<img class="w-10 h-10 rounded-full border-2 border-surface object-cover" data-alt="mature businessman in formal wear" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClZDcATu7RK5RhQOIJEhnd0T3yWeWYx5eAkggheLZmRYOtmLu42Kp_tuThxivTg9k5PFNtf3N6i9GYu2dQdMrNQHylunQlXVwpSmJdtSd-eLtdwsozSB8uQEhoPhkh7KrbAsOeoTBqJ9dl9dy7sxcyYGizdA_KchLfBMc8QMRL5IBTRt_SJSs04qEDysTUmYVdPTl58eNV3aOFzhrh0g_tiBad8sWDPbTYHQUcKROyfWMGNdVuYUr4HJiIlRq8Cvpw4EjCkm06z69H"/>
+<div class="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center border-2 border-surface text-xs font-bold text-on-surface-variant">+4</div>
+</div>
+<p class="text-xs text-on-surface-variant uppercase tracking-widest font-semibold">Jurisdictional Panel</p>
+</div>
+</div>
+<!-- Tabbed Navigation -->
+<div class="flex gap-10 mb-8 border-b border-outline-variant/15 overflow-x-auto pb-px">
+<button class="pb-4 text-sm font-bold tracking-widest uppercase text-primary border-b-2 border-primary">Fluxo</button>
+<button class="pb-4 text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">Documentos</button>
+<button class="pb-4 text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">EAD Relacionado</button>
+<button class="pb-4 text-sm font-bold tracking-widest uppercase text-on-surface-variant hover:text-on-surface transition-colors">Marketing</button>
+</div>
+<!-- Bento Layout Content -->
+<div class="grid grid-cols-12 gap-8">
+<!-- Section 1: Fluxo (Horizontal Timeline) -->
+<div class="col-span-12 bg-surface-container-low p-10 rounded-xl relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-5">
+<span class="material-symbols-outlined text-9xl">account_tree</span>
+</div>
+<div class="flex items-center justify-between mb-12">
+<h3 class="text-2xl font-headline font-bold">Timeline of Proceedings</h3>
+<span class="text-sm text-on-surface-variant font-medium">Estimated Conclusion: Oct 2026</span>
+</div>
+<div class="relative pt-8 pb-12 px-4">
+<!-- Connecting Line -->
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-outline-variant/20 -translate-y-1/2"></div>
+<div class="absolute top-1/2 left-0 w-[66%] h-[2px] premium-button -translate-y-1/2 shadow-lg shadow-primary-container/20"></div>
+<div class="relative flex justify-between">
+<!-- Stage 1 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-12 h-12 rounded-full premium-button flex items-center justify-center text-white z-10 ring-8 ring-surface-container-low">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="text-center">
+<p class="font-bold text-on-surface">Conciliação</p>
+<p class="text-xs text-on-surface-variant">Completed Aug 12</p>
+</div>
+</div>
+<!-- Stage 2 -->
+<div class="flex flex-col items-center gap-4">
+<div class="w-12 h-12 rounded-full premium-button flex items-center justify-center text-white z-10 ring-8 ring-surface-container-low scale-110">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">gavel</span>
+</div>
+<div class="text-center">
+<p class="font-bold text-primary">Instrução</p>
+<p class="text-xs text-primary/80 font-semibold italic">Current Stage</p>
+</div>
+</div>
+<!-- Stage 3 -->
+<div class="flex flex-col items-center gap-4 opacity-40">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest border-2 border-outline-variant flex items-center justify-center text-on-surface-variant z-10 ring-8 ring-surface-container-low">
+<span class="material-symbols-outlined">description</span>
+</div>
+<div class="text-center">
+<p class="font-bold text-on-surface">Sentença</p>
+<p class="text-xs text-on-surface-variant">Pending Evidence</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 2: Documentos (Thumbnails) -->
+<div class="col-span-12 lg:col-span-7 space-y-6">
+<div class="flex items-center justify-between">
+<h3 class="text-xl font-headline font-bold">Document Repository</h3>
+<button class="text-primary text-xs font-bold tracking-widest uppercase hover:underline">View All Files</button>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<!-- Doc 1 -->
+<div class="glass-card p-4 flex gap-4 items-center group cursor-pointer hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-24 bg-surface-container-high rounded flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover opacity-50" data-alt="monochrome macro photography of legal document textures with subtle ink bleed" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgTyLfdlToeUF5K-_blBX7mHWx2kDSTdhdlEa1y2eBr69MmxYUujdNjKCEOYB772G2bQ4k7tOJKabwMzVi32I66qXXCauLqlIefqZYuDml8VnMwAXGxZ-vv8CNOO5zq286vFPGZFNwT0qTFGRCQartGEgIUgASvf3T_YHw3xEGLXUBLcxkh-x_3L9Qpf20hkEOgRrVUn8QZBJtt1oXACxVTZcpxa5qW2thjnmCA77Axn_LqghEqN7XBisAJ-TFw7xhWiMkN4jgkbwG"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">article</span>
+</div>
+</div>
+<div class="overflow-hidden">
+<p class="font-bold text-on-surface truncate">Ata de Mediação</p>
+<p class="text-xs text-on-surface-variant">PDF • 2.4 MB</p>
+<div class="mt-3 flex gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">download</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">visibility</span>
+</div>
+</div>
+</div>
+<!-- Doc 2 -->
+<div class="glass-card p-4 flex gap-4 items-center group cursor-pointer hover:shadow-xl transition-all duration-300">
+<div class="w-20 h-24 bg-surface-container-high rounded flex-shrink-0 relative overflow-hidden">
+<img class="w-full h-full object-cover opacity-50" data-alt="abstract architectural forms in shades of stone and clay providing a professional backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBlOBR9R81hwGdbZ8nvhGv_-whKL4BjeA8ghCjdNd4cfIdji1vJ06eMJK4RNgHW586AV5tDpVR2EZhxtX33QGXc4Edl1wg6X8mWbJhDyl2mIZdx0X-T1f-LS9F1z1hXwjHlyJXRmmFWLMpDCQYWjDVZpzUWF6L0U9PMyhKhUQSWjI_rGLF3603OJBzlACaM8HGFNiysEelF2guodZ5C3u2E_sHiNDsIRS3ftC_pkrywXIS8fITtJXSVmARJxL_WDN-StMMb_gAAJlcc"/>
+<div class="absolute inset-0 flex items-center justify-center">
+<span class="material-symbols-outlined text-on-surface-variant">contract_edit</span>
+</div>
+</div>
+<div class="overflow-hidden">
+<p class="font-bold text-on-surface truncate">Termo de Adesão</p>
+<p class="text-xs text-on-surface-variant">PDF • 1.1 MB</p>
+<div class="mt-3 flex gap-2">
+<span class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">download</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant hover:text-primary">visibility</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Section 3: EAD Relacionado -->
+<div class="col-span-12 lg:col-span-5">
+<div class="bg-stone-900 text-white p-10 rounded-xl flex flex-col justify-between h-full relative overflow-hidden group">
+<div class="absolute -right-12 -bottom-12 opacity-10 group-hover:scale-110 transition-transform duration-700">
+<span class="material-symbols-outlined text-[200px]">school</span>
+</div>
+<div class="relative z-10">
+<span class="px-2 py-1 bg-amber-500/20 text-amber-500 text-[10px] font-bold tracking-widest uppercase rounded mb-4 inline-block">Recommended Training</span>
+<h3 class="text-3xl font-headline font-bold mb-4">Mastering Mediation: Predial Focus</h3>
+<p class="text-stone-400 text-sm mb-8 leading-relaxed">Enhance your case resolution skills with our specialized module on territorial disputes and communal mediation.</p>
+</div>
+<button class="premium-button w-full py-4 text-sm font-bold tracking-widest uppercase shadow-2xl relative z-10 active:scale-95 transition-transform">
+                            Iniciar Curso: Mediação Predial
+                        </button>
+</div>
+</div>
+<!-- Section 4: Marketing -->
+<div class="col-span-12">
+<div class="bg-surface-container-low p-8 rounded-xl border border-outline-variant/10 flex flex-col md:flex-row items-center justify-between gap-8">
+<div class="flex items-center gap-6">
+<div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">campaign</span>
+</div>
+<div>
+<h4 class="text-lg font-bold">Promover este caso</h4>
+<p class="text-on-surface-variant text-sm">Create a professional narrative for the Sovereign Archive community.</p>
+</div>
+</div>
+<button class="bg-white border border-outline-variant/30 text-on-surface px-8 py-4 rounded-lg text-xs font-bold tracking-widest uppercase flex items-center gap-3 hover:bg-surface-container-lowest transition-colors shadow-sm">
+<span class="material-symbols-outlined text-lg">share</span>
+                            Gerar Roteiro LinkedIn
+                        </button>
+</div>
+</div>
+</div>
+</div>
+<!-- FAB Suppression as per mandate: Screen is 'Details' so no FAB is rendered -->
+</main>
+</body></html>
