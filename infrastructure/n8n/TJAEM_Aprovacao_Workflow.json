@@ -1,0 +1,101 @@
+{
+  "name": "TJAEM Approval Process",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "approve",
+        "options": {}
+      },
+      "id": "1",
+      "name": "Webhook Aprovação",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [
+        250,
+        300
+      ],
+      "webhookId": "tjaem-approval-webhook"
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "schema": "public",
+        "table": "members",
+        "columns": "member_id, name, status, approved_at",
+        "options": {}
+      },
+      "id": "2",
+      "name": "Salvar no Postgres",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 2.1,
+      "position": [
+        450,
+        300
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "1",
+          "name": "Postgres account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "fromEmail": "dev@portal.tjaembrasil.com.br",
+        "toEmail": "={{ $json.body.email || 'magistrado@exemplo.com' }}",
+        "subject": "TJAEM - Habilitação Aprovada Oficialmente",
+        "text": "={{ 'Prezado(a) ' + $json.body.name + ',\\n\\nSua habilitação (ID: ' + $json.body.member_id + ') foi aprovada no portal TJAEM.\\n\\nVocê já pode acessar o sistema com suas credenciais.\\n\\nAtenciosamente,\\nAdministração TJAEM' }}",
+        "options": {}
+      },
+      "id": "3",
+      "name": "Send Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2,
+      "position": [
+        650,
+        300
+      ],
+      "credentials": {
+        "smtp": {
+          "id": "2",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook Aprovação": {
+      "main": [
+        [
+          {
+            "node": "Salvar no Postgres",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Salvar no Postgres": {
+      "main": [
+        [
+          {
+            "node": "Send Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f781bbcd-63d1-4e4b-97e3-0c4873bbbe91",
+  "id": "8P2E1jH15Z1pY72",
+  "meta": {
+    "templateCredsSetupCompleted": true
+  }
+}
