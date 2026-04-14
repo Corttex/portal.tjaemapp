@@ -1,0 +1,90 @@
+{
+  "name": "TJAEM: S3 OCR Sync Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "event": "ObjectCreated",
+        "bucket": "tjaem-central-arquivos-prod",
+        "prefix": "incoming-scans/"
+      },
+      "id": "a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6",
+      "name": "S3 Trigger: New File",
+      "type": "n8n-nodes-base.s3Trigger",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ],
+      "credentials": {
+        "aws": {
+          "id": "tjaem-aws-creds"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.ocr-vision-placeholder.com/analyze",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"image_url\": \"{{$node[\"S3 Trigger: New File\"].json[\"url\"]}}\",\n  \"features\": [\"TEXT_DETECTION\"]\n}",
+        "options": {}
+      },
+      "id": "b2c3d4e5-f6g7-h8i9-j0k1-l2m3n4o5p6q7",
+      "name": "HTTP: Vision AI OCR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        600,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "insert",
+        "table": "system_logs",
+        "columns": "event, payload, created_at",
+        "values": "={\n  \"event\": \"OCR_EXTRACTION_SUCCESS\",\n  \"payload\": \"{{JSON.stringify($node[\"HTTP: Vision AI OCR\"].json)}}\",\n  \"created_at\": \"{{new Date()}}\"\n}"
+      },
+      "id": "c3d4e5f6-g7h8-i9j0-k1l2-m3n4o5p6q7r8",
+      "name": "Postgres: Log Extraction",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        850,
+        300
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "tjaem-db-creds"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "S3 Trigger: New File": {
+      "main": [
+        [
+          {
+            "node": "HTTP: Vision AI OCR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP: Vision AI OCR": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Log Extraction",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

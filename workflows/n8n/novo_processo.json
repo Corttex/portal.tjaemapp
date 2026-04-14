@@ -1,0 +1,81 @@
+{
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "tjaem/new-process",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "name": "Webhook: Novo Processo",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [250, 300]
+    },
+    {
+      "parameters": {
+        "operation": "upload",
+        "bucketId": "={{ $env.AWS_S3_BUCKET }}",
+        "folderKey": "={{ `processos/${$json.body.id_processo}/` }}",
+        "options": {}
+      },
+      "name": "AWS S3: Criar Pasta",
+      "type": "n8n-nodes-base.awsS3",
+      "typeVersion": 1,
+      "position": [450, 300],
+      "credentials": { "aws": { "id": "YOUR_AWS_CRED_ID", "name": "TJAEM AWS Prod" } }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.stitchdata.com/v2/load",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            { "name": "Authorization", "value": "Bearer {{$env.STITCH_API_KEY}}" }
+          ]
+        },
+        "bodyParameters": {
+          "parameters": [
+            { "name": "batch", "value": "={{ { \"streams\": [{ \"stream\": \"processos\", \"records\": [$json.body] }] } }}" }
+          ]
+        }
+      },
+      "name": "Stitch: Sync Processo",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 1,
+      "position": [450, 450]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            { "value1": "={{ $json.body.tipo }}", "operation": "equals", "value2": "Disputa Condominial" }
+          ]
+        }
+      },
+      "name": "IF: Tipo = Condominial",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [650, 300]
+    },
+    {
+      "parameters": {
+        "to": "={{ $json.body.associado_email }}",
+        "subject": "🚨 Novo Processo #{{ $json.body.id_processo }} - Ação Requerida",
+        "html": "={{ `<h3>Processo Criado: #${$json.body.id_processo}</h3><p><strong>Tipo:</strong> ${$json.body.tipo}</p><p><strong>Prazo Final:</strong> ${$json.body.prazo_final}</p><p>✅ Pasta criada na Central de Arquivos</p><p>🎓 Recomendamos: <a href='${$env.EAD_LMS_URL}/modulo/3'>Módulo 3 - Mediação Predial</a></p>` }}",
+        "options": {}
+      },
+      "name": "Email: Notificar Associado",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [850, 300]
+    }
+  ],
+  "connections": {
+    "Webhook: Novo Processo": { "main": [[{ "node": "AWS S3: Criar Pasta", "type": "main", "index": 0 }]] },
+    "AWS S3: Criar Pasta": { "main": [[{ "node": "Stitch: Sync Processo", "type": "main", "index": 0 }]] },
+    "Stitch: Sync Processo": { "main": [[{ "node": "IF: Tipo = Condominial", "type": "main", "index": 0 }]] },
+    "IF: Tipo = Condominial": { "main": [[{ "node": "Email: Notificar Associado", "type": "main", "index": 0 }]] }
+  }
+}

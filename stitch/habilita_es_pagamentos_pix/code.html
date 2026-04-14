@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Membership Approvals | TJAEM Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Work+Sans:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed-dim": "#ffb872",
+                    "surface-tint": "#8b5000",
+                    "surface": "#f5faff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "secondary-container": "#d1e2ee",
+                    "surface-container-highest": "#d4e5f0",
+                    "surface-dim": "#ccdce8",
+                    "inverse-on-surface": "#e2f3ff",
+                    "on-tertiary-container": "#eaffd4",
+                    "on-background": "#0d1d26",
+                    "on-tertiary-fixed-variant": "#255100",
+                    "on-secondary-fixed-variant": "#394952",
+                    "on-primary": "#ffffff",
+                    "secondary": "#51616a",
+                    "primary-container": "#a76100",
+                    "on-primary-fixed": "#2d1600",
+                    "tertiary-fixed-dim": "#86dc47",
+                    "on-surface": "#0d1d26",
+                    "error": "#ba1a1a",
+                    "on-tertiary": "#ffffff",
+                    "on-surface-variant": "#534437",
+                    "surface-bright": "#f5faff",
+                    "on-primary-container": "#fff7f2",
+                    "secondary-fixed-dim": "#b8c9d4",
+                    "tertiary": "#306600",
+                    "on-tertiary-fixed": "#0b2000",
+                    "on-secondary-fixed": "#0d1d26",
+                    "surface-variant": "#d4e5f0",
+                    "surface-container-low": "#e8f5ff",
+                    "surface-container-high": "#daebf6",
+                    "on-primary-fixed-variant": "#6a3c00",
+                    "outline": "#867465",
+                    "on-secondary-container": "#55656f",
+                    "secondary-fixed": "#d4e5f0",
+                    "on-secondary": "#ffffff",
+                    "background": "#f5faff",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed": "#a0f960",
+                    "primary": "#844c00",
+                    "primary-fixed": "#ffdcbe",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#ffb872",
+                    "tertiary-container": "#3e8100",
+                    "outline-variant": "#d8c3b1",
+                    "inverse-surface": "#23323b",
+                    "surface-container": "#dff0fc"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Newsreader", "serif"],
+                    "body": ["Work Sans", "sans-serif"],
+                    "label": ["Inter", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Newsreader', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-background min-h-screen">
+<!-- TopNavBar -->
+<header class="sticky top-0 z-50 flex justify-between items-center px-6 py-3 bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl w-full border-b border-stone-200/50 dark:border-stone-800/50">
+<div class="flex items-center gap-4">
+<span class="text-xl font-serif italic text-amber-800 dark:text-amber-600">TJAEM Admin</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center bg-surface-container-low px-4 py-1.5 rounded-lg border border-outline-variant/10">
+<span class="material-symbols-outlined text-sm mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-64 placeholder-on-surface-variant/50" placeholder="Search applications..." type="text"/>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-amber-700 dark:text-amber-500 cursor-pointer transition-opacity active:opacity-80" data-icon="notifications">notifications</span>
+<span class="material-symbols-outlined text-amber-700 dark:text-amber-500 cursor-pointer transition-opacity active:opacity-80" data-icon="settings">settings</span>
+<img alt="Administrator Profile" class="w-8 h-8 rounded-full border border-primary/20 object-cover" data-alt="professional portrait of a senior magistrate in a dark academic robe against a library background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9Tu65ORHksAnURfDEjYUEP3XHkocYqCF3FuJqfqEQrLRSg2d0VbVrZkvHZ47frg6GTfUkTl_S38N_Cr9nbpRNFLcYFqz0_1atlGLJNkOFZYewMPYWqtp-5-tiNVtTlv879UUNcbKgtUr6drkm_qLD7QWN-1OUj1wBcixPcyIeu6KekgmmVbjnMCULWPeYZ-GbsEPXLQea_JrmGLeGLMGX_pIG5-w4SuyJkzg8pTfSFEY4b_pVP3dH8jxTOSFtXhxCn-f-eB2ecUP-"/>
+</div>
+</div>
+</header>
+<div class="flex">
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-0 h-full flex flex-col pt-4 pb-8 h-screen w-64 border-r border-stone-200/50 dark:border-stone-800/50 bg-stone-50 dark:bg-stone-950 hidden md:flex">
+<div class="px-6 mb-8 mt-12">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-primary-container flex items-center justify-center rounded-lg">
+<span class="material-symbols-outlined text-on-primary-container" data-icon="gavel">gavel</span>
+</div>
+<div>
+<h2 class="text-lg font-serif text-stone-900 dark:text-stone-100 leading-none">Magistrate Office</h2>
+<p class="text-xs font-label text-stone-500">Administrative Portal</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="article">article</span>
+<span class="text-sm font-medium">Content Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="group_work">group_work</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-amber-800 dark:text-amber-500 font-semibold border-r-2 border-amber-700 dark:border-amber-500 bg-stone-100 dark:bg-stone-900" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="verified_user">verified_user</span>
+<span class="text-sm font-medium">Membership Approvals</span>
+</a>
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3" data-icon="account_balance_wallet">account_balance_wallet</span>
+<span class="text-sm font-medium">Financials</span>
+</a>
+</nav>
+<div class="px-6 py-4">
+<button class="w-full bg-primary-container text-on-primary-container py-2.5 rounded-lg text-xs font-bold tracking-widest uppercase hover:opacity-90 transition-opacity">
+                    New Entry
+                </button>
+</div>
+<footer class="mt-auto space-y-1 border-t border-stone-200/50 pt-4">
+<a class="flex items-center px-6 py-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 text-sm" href="#">
+<span class="material-symbols-outlined mr-3 text-sm" data-icon="help_outline">help_outline</span>
+                    Support
+                </a>
+<a class="flex items-center px-6 py-2 text-stone-600 dark:text-stone-400 hover:text-stone-900 text-sm" href="#">
+<span class="material-symbols-outlined mr-3 text-sm" data-icon="history">history</span>
+                    Logs
+                </a>
+</footer>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 flex-1 p-8 min-h-screen">
+<header class="mb-10">
+<p class="text-primary font-label text-xs uppercase tracking-widest mb-2">Pending Credentials</p>
+<h1 class="text-4xl md:text-5xl font-headline font-semibold text-on-background">Membership Approvals</h1>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+<!-- Main List: Applications -->
+<div class="lg:col-span-8 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl p-1 shadow-sm overflow-hidden">
+<div class="bg-surface-container-high/30 px-6 py-4 flex justify-between items-center">
+<h3 class="text-lg font-headline font-medium">Pending Review</h3>
+<span class="text-xs font-label bg-amber-100 text-amber-800 px-3 py-1 rounded-full">48 Applications</span>
+</div>
+<div class="divide-y divide-surface-container">
+<!-- Applicant Item 1 -->
+<div class="p-6 hover:bg-surface-container-low/20 transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<img alt="Applicant Avatar" class="w-12 h-12 rounded-lg object-cover" data-alt="close-up portrait of a middle-aged man with glasses looking professional and trustworthy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCB2Sk8G9_V18aTUcJGGNxpxJbFzjYYDaNGaghh62W1wsUpZfodo1lgDdVFFPsP4Rt4_lAHUKTZ_HnDbluRlryt5vLd6bKjhsXRqe-6wYcNUMnUTTp3OSSQniYompe7R3E-tWKdjhXDwboNfx97JBAW6Ru83flEkFKmi6PtuRQltLP498XvyXFo-M_8Vyi-OqmwMG8S-xbWH-b88FhmijfCWmYmQdUWveMdR8ClFk1K-f848S8zzm5b1F60Avm0WMcZkxxtLFfQGCUT"/>
+<div>
+<h4 class="font-medium text-on-background">Dr. Eduardo Silveira</h4>
+<p class="text-sm text-secondary">Applied: 2h ago • ID: #8892</p>
+</div>
+</div>
+<div class="flex items-center gap-8 w-full md:w-auto">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-label font-semibold">Pix Confirmed</span>
+</div>
+<p class="text-[10px] text-secondary">Ref: 9x8823jka...</p>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded font-label text-xs font-bold uppercase tracking-widest hover:opacity-90">
+                                        Review
+                                    </button>
+</div>
+</div>
+<!-- Applicant Item 2 -->
+<div class="p-6 hover:bg-surface-container-low/20 transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<img alt="Applicant Avatar" class="w-12 h-12 rounded-lg object-cover" data-alt="portrait of a focused young woman professional in business attire" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD48BRmNdN7xeGk5jD-nUEfZHW_weZzq-MJCoZ3m0P6MURLGFgMx9kXn9Mlx6PQa4GibsZHzeufblYJbCltzQCqqk8YNDgz1uBzNZD9Lws25N_5JhEZrIJfLDdpRJdPfn44WjJw_lJg57EsxqUux8SPS9JWpDlI9Zjv1p4h1FpuLBy-WkvlE1sv_MR-_I6uPlPf2A5u4_gMFvgu6B3LrX-g0ywtmqsDOh_FF8QyQf_5so0r3CHbZ4V4SPmuNhdyjAqmxGELeGxTXn4_"/>
+<div>
+<h4 class="font-medium text-on-background">Ana Cláudia Martins</h4>
+<p class="text-sm text-secondary">Applied: 5h ago • ID: #8889</p>
+</div>
+</div>
+<div class="flex items-center gap-8 w-full md:w-auto">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 text-amber-600">
+<span class="material-symbols-outlined text-sm" data-icon="pending">pending</span>
+<span class="text-sm font-label font-semibold">Pix Pending</span>
+</div>
+<p class="text-[10px] text-secondary">Awaiting API hook</p>
+</div>
+<button class="border border-outline-variant/30 text-secondary px-5 py-2 rounded font-label text-xs font-bold uppercase tracking-widest hover:bg-surface-container-low">
+                                        Review
+                                    </button>
+</div>
+</div>
+<!-- Applicant Item 3 -->
+<div class="p-6 hover:bg-surface-container-low/20 transition-colors flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-lg bg-surface-container-highest flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+</div>
+<div>
+<h4 class="font-medium text-on-background">Roberto de Assis</h4>
+<p class="text-sm text-secondary">Applied: Yesterday • ID: #8885</p>
+</div>
+</div>
+<div class="flex items-center gap-8 w-full md:w-auto">
+<div class="flex flex-col items-end">
+<div class="flex items-center gap-2 text-tertiary">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-sm font-label font-semibold">Pix Confirmed</span>
+</div>
+<p class="text-[10px] text-secondary">Ref: 2p0911mzx...</p>
+</div>
+<button class="bg-primary text-on-primary px-5 py-2 rounded font-label text-xs font-bold uppercase tracking-widest hover:opacity-90">
+                                        Review
+                                    </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Side Sidebar: Detail & Action -->
+<div class="lg:col-span-4 space-y-6">
+<!-- Preview Card -->
+<div class="bg-primary text-on-primary rounded-xl p-8 shadow-xl relative overflow-hidden">
+<div class="absolute -right-12 -top-12 opacity-10">
+<span class="material-symbols-outlined text-[160px]" data-icon="account_balance">account_balance</span>
+</div>
+<div class="relative z-10">
+<h3 class="text-2xl font-headline italic mb-6">Credential Details</h3>
+<div class="space-y-6">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-primary-fixed" data-icon="badge">badge</span>
+<div>
+<p class="text-sm font-bold uppercase tracking-tighter opacity-80">Carteira Impressa</p>
+<p class="text-xs opacity-60">High-security digital print with holographic seal.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-primary-fixed" data-icon="workspace_premium">workspace_premium</span>
+<div>
+<p class="text-sm font-bold uppercase tracking-tighter opacity-80">Certificado</p>
+<p class="text-xs opacity-60">Judicial certification document signed by the magistrate.</p>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined mt-1 text-primary-fixed" data-icon="redeem">redeem</span>
+<div>
+<p class="text-sm font-bold uppercase tracking-tighter opacity-80">Brinde Exclusivo</p>
+<ul class="text-xs opacity-60 list-disc list-inside mt-1">
+<li>Brasão de Mesa</li>
+<li>PIN Lapela</li>
+<li>Distintivo em Couro</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="mt-10 pt-8 border-t border-white/20">
+<div class="flex justify-between items-center mb-6">
+<div>
+<p class="text-xs uppercase tracking-widest opacity-60">API Integration</p>
+<p class="text-lg font-bold">PIX Verified</p>
+</div>
+<span class="material-symbols-outlined text-4xl" data-icon="qr_code_2">qr_code_2</span>
+</div>
+<button class="w-full bg-white text-primary py-4 rounded-lg font-label font-extrabold uppercase tracking-widest shadow-lg hover:bg-surface-container-lowest transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined" data-icon="verified">verified</span>
+                                    Confirm Habilitação
+                                </button>
+</div>
+</div>
+</div>
+<!-- Statistics Card -->
+<div class="bg-surface-container-high rounded-xl p-6">
+<h4 class="font-headline text-lg mb-4">Daily Performance</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-end">
+<span class="text-xs text-secondary font-label">Approved Today</span>
+<span class="text-xl font-bold text-on-background">12</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-tertiary w-3/4 h-1 rounded-full"></div>
+</div>
+<div class="flex justify-between items-end">
+<span class="text-xs text-secondary font-label">Waiting Payment</span>
+<span class="text-xl font-bold text-on-background">36</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full">
+<div class="bg-amber-500 w-1/4 h-1 rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile BottomNavBar -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-stone-900 border-t border-stone-200/50 flex justify-around items-center py-3 px-6 z-50">
+<button class="flex flex-col items-center text-stone-500">
+<span class="material-symbols-outlined" data-icon="article">article</span>
+</button>
+<button class="flex flex-col items-center text-stone-500">
+<span class="material-symbols-outlined" data-icon="group_work">group_work</span>
+</button>
+<button class="flex flex-col items-center text-amber-800">
+<span class="material-symbols-outlined" data-icon="verified_user" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+</button>
+<button class="flex flex-col items-center text-stone-500">
+<span class="material-symbols-outlined" data-icon="account_balance_wallet">account_balance_wallet</span>
+</button>
+</nav>
+</body></html>

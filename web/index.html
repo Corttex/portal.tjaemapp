@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal TJAEM - Gestão Arbitral</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="glass-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <span class="logo-accent">TJAEM</span> Portal
+            </div>
+            <nav>
+                <ul>
+                    <li class="active"><a href="#" id="nav-dashboard">📊 Dashboard</a></li>
+                    <li><a href="#" id="nav-processes">⚖️ Processos</a></li>
+                    <li><a href="#" id="nav-ead">🎓 EAD Cursos</a></li>
+                    <li><a href="#" id="nav-security">🛡️ Segurança</a></li>
+                    <li><a href="#" id="nav-ai-lab" class="special-nav">🧠 IA Lab <span class="badge">FREE</span></a></li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button class="btn-audit" id="btn-audit">Audit Security</button>
+            </div>
+        </aside>
+
+        <main class="content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <input type="text" placeholder="Buscar processos, associados...">
+                </div>
+                <div class="user-profile">
+                    <span class="status-online"></span>
+                    <span class="user-name">Arquiteto TJAEM</span>
+                </div>
+            </header>
+
+            <section class="dashboard-grid">
+                <div class="card glass">
+                    <h3>Processos Ativos</h3>
+                    <div class="card-value">124</div>
+                    <div class="card-footer green">+5 esta semana</div>
+                </div>
+                <div class="card glass">
+                    <h3>Prazos Críticos</h3>
+                    <div class="card-value">08</div>
+                    <div class="card-footer red">🚨 Ação Requerida</div>
+                </div>
+                <div class="card glass">
+                    <h3>Segurança Cloud</h3>
+                    <div class="card-value">98%</div>
+                    <div class="card-footer blue">Backup OK</div>
+                </div>
+            </section>
+
+            <section class="bottom-section">
+                <div class="recent-activity glass">
+                    <h3>Atividade Recente</h3>
+                    <ul class="activity-list">
+                        <li>
+                            <span class="time">14:20</span>
+                            <span class="desc">Novo processo <strong>#2026-045</strong> criado via n8n</span>
+                        </li>
+                        <li>
+                            <span class="time">12:05</span>
+                            <span class="desc">Ata de Mediação gerada para #2026-002</span>
+                        </li>
+                        <li>
+                            <span class="time">09:15</span>
+                            <span class="desc">Sincronização Stitch concluída para BigQuery</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="quick-integration glass">
+                    <h3>Integrações Rápidas</h3>
+                    <div class="integration-buttons">
+                        <a href="https://ead.tjaembrasil.com.br" class="btn-int">Acessar EAD</a>
+                        <a href="https://api.cameb.org.br" class="btn-int secondary">Docs CAMEB</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- AI Lab UI (Hidden by default) -->
+            <section id="ai-lab-section" class="ai-lab-container glass hidden">
+                <div class="ai-header">
+                    <h2>🧠 TJAEM AI Assistant</h2>
+                    <p>Powered by OpenRouter & Gemma 2</p>
+                </div>
+                <div id="ai-chat-box" class="ai-chat-box">
+                    <div class="ai-bubble assistant">Olá! Como posso ajudar com os processos do TJAEM hoje?</div>
+                </div>
+                <div class="ai-input-area">
+                    <select id="ai-model-select" class="ai-select">
+                        <option value="google/gemma-2-9b-it:free">Gemma 2 9B (Free)</option>
+                        <option value="mistralai/mistral-7b-instruct:free">Mistral 7B (Free)</option>
+                        <option value="meta-llama/llama-3-8b-instruct:free">Llama 3 8B (Free)</option>
+                    </select>
+                    <input type="text" id="ai-input" placeholder="Pergunte sobre jurisprudência, prazos ou processos...">
+                    <button id="ai-btn-send">Enviar</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="notification-toast" class="toast hidden"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

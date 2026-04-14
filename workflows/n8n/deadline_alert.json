@@ -1,0 +1,151 @@
+{
+  "name": "TJAEM: Deadline Alert Flow",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours",
+              "hours": 8
+            }
+          ]
+        }
+      },
+      "id": "e6a2b845-8c01-4475-9273-049591459a91",
+      "name": "Schedule: Daily 8AM",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [
+        400,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "executeQuery",
+        "query": "SELECT * FROM tjaem_critical_deadlines;"
+      },
+      "id": "b3f6c12d-45a1-4d1a-8c23-568912456789",
+      "name": "Postgres: Query View",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [
+        600,
+        300
+      ],
+      "credentials": {
+        "postgres": {
+          "id": "tjaem-db-creds"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$node[\"Postgres: Query View\"].json[\"numero_processo\"]}}",
+              "operation": "notEmpty"
+            }
+          ]
+        }
+      },
+      "id": "c1d2e3f4-5g6h-7i8j-9k0l-m1n2o3p4q5r6",
+      "name": "If: Has Deadlines",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        800,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.whatsapp-placeholder.net/send",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer YOUR_TOKEN"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"phone\": \"{{$node[\"Postgres: Query View\"].json[\"associado_email\"]}}\",\n  \"message\": \"🚨 ALERTA TJAEM: O processo {{$node[\"Postgres: Query View\"].json[\"numero_processo\"]}} ({{$node[\"Postgres: Query View\"].json[\"tipo\"]}}) vence em {{$node[\"Postgres: Query View\"].json[\"data_prazo\"]}}. Favor agir imediatamente.\"\n}",
+        "options": {}
+      },
+      "id": "d7e8f901-2a3b-4c5d-6e7f-8g9h0i1j2k3l",
+      "name": "HTTP: WhatsApp Placeholder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1050,
+        200
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.sms-placeholder.com/v1/send",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"to\": \"{{$node[\"Postgres: Query View\"].json[\"associado_email\"]}}\",\n  \"text\": \"TJAEM: Prazo critico no processo {{$node[\"Postgres: Query View\"].json[\"numero_processo\"]}}.\"\n}",
+        "options": {}
+      },
+      "id": "f5k6l7m8-n9o0-p1q2-r3s4-t5u6v7w8x9y0",
+      "name": "HTTP: SMS Placeholder",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 3,
+      "position": [
+        1050,
+        400
+      ]
+    }
+  ],
+  "connections": {
+    "Schedule: Daily 8AM": {
+      "main": [
+        [
+          {
+            "node": "Postgres: Query View",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Postgres: Query View": {
+      "main": [
+        [
+          {
+            "node": "If: Has Deadlines",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If: Has Deadlines": {
+      "main": [
+        [
+          {
+            "node": "HTTP: WhatsApp Placeholder",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "HTTP: SMS Placeholder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {}
+}

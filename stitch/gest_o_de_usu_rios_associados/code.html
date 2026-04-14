@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>User Management | TJAEM Admin</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Work+Sans:wght@300;400;500;600;700&amp;family=Inter:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed-dim": "#ffb872",
+                        "surface-tint": "#8b5000",
+                        "surface": "#f5faff",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#d1e2ee",
+                        "surface-container-highest": "#d4e5f0",
+                        "surface-dim": "#ccdce8",
+                        "inverse-on-surface": "#e2f3ff",
+                        "on-tertiary-container": "#eaffd4",
+                        "on-background": "#0d1d26",
+                        "on-tertiary-fixed-variant": "#255100",
+                        "on-secondary-fixed-variant": "#394952",
+                        "on-primary": "#ffffff",
+                        "secondary": "#51616a",
+                        "primary-container": "#a76100",
+                        "on-primary-fixed": "#2d1600",
+                        "tertiary-fixed-dim": "#86dc47",
+                        "on-surface": "#0d1d26",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "on-surface-variant": "#534437",
+                        "surface-bright": "#f5faff",
+                        "on-primary-container": "#fff7f2",
+                        "secondary-fixed-dim": "#b8c9d4",
+                        "tertiary": "#306600",
+                        "on-tertiary-fixed": "#0b2000",
+                        "on-secondary-fixed": "#0d1d26",
+                        "surface-variant": "#d4e5f0",
+                        "surface-container-low": "#e8f5ff",
+                        "surface-container-high": "#daebf6",
+                        "on-primary-fixed-variant": "#6a3c00",
+                        "outline": "#867465",
+                        "on-secondary-container": "#55656f",
+                        "secondary-fixed": "#d4e5f0",
+                        "on-secondary": "#ffffff",
+                        "background": "#f5faff",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#a0f960",
+                        "primary": "#844c00",
+                        "primary-fixed": "#ffdcbe",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ffb872",
+                        "tertiary-container": "#3e8100",
+                        "outline-variant": "#d8c3b1",
+                        "inverse-surface": "#23323b",
+                        "surface-container": "#dff0fc"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Newsreader"],
+                        "body": ["Work Sans"],
+                        "label": ["Inter"]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Work Sans', sans-serif; }
+        h1, h2, h3 { font-family: 'Newsreader', serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-background min-h-screen">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-stone-50 dark:bg-stone-950 border-r border-stone-200/50 dark:border-stone-800/50 flex flex-col pt-4 pb-8 z-40 hidden md:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 bg-primary-container rounded flex items-center justify-center text-on-primary-container">
+<span class="material-symbols-outlined">gavel</span>
+</div>
+<div>
+<h2 class="text-lg font-serif text-stone-900 dark:text-stone-100 leading-tight">Magistrate Office</h2>
+<p class="text-xs font-body text-stone-500 uppercase tracking-widest">Administrative Portal</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 space-y-1">
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 hover:text-stone-900 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">article</span>
+<span class="text-sm font-medium">Content Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-amber-800 dark:text-amber-500 font-semibold border-r-2 border-amber-700 dark:border-amber-500 bg-stone-100 dark:bg-stone-900" href="#">
+<span class="material-symbols-outlined mr-3">group_work</span>
+<span class="text-sm font-medium">User Management</span>
+</a>
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 hover:text-stone-900 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">verified_user</span>
+<span class="text-sm font-medium">Membership Approvals</span>
+</a>
+<a class="flex items-center px-6 py-3 text-stone-600 dark:text-stone-400 hover:bg-stone-200/50 dark:hover:bg-stone-800/50 hover:text-stone-900 transition-colors" href="#">
+<span class="material-symbols-outlined mr-3">account_balance_wallet</span>
+<span class="text-sm font-medium">Financials</span>
+</a>
+</nav>
+<div class="px-6 mt-auto space-y-1">
+<button class="w-full bg-primary-container text-on-primary-container py-3 rounded-lg font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 mb-6 shadow-sm hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">add</span>
+                New Entry
+            </button>
+<a class="flex items-center py-2 text-stone-500 hover:text-amber-800 text-sm transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">help_outline</span>
+                Support
+            </a>
+<a class="flex items-center py-2 text-stone-500 hover:text-amber-800 text-sm transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-lg">history</span>
+                Logs
+            </a>
+</div>
+</aside>
+<!-- Top Navigation -->
+<header class="sticky top-0 z-30 w-full bg-white/80 dark:bg-stone-900/80 backdrop-blur-xl border-b border-stone-200/50 dark:border-stone-800/50 flex justify-between items-center px-6 py-3 md:pl-72">
+<div class="flex items-center gap-4">
+<span class="text-xl font-serif italic text-amber-800 dark:text-amber-600">TJAEM Admin</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-1.5 pl-10 pr-4 text-sm focus:ring-1 focus:ring-primary w-64 text-on-surface-variant placeholder:text-stone-400" placeholder="Quick search associates..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-amber-700">
+<button class="hover:text-amber-600 transition-colors flex items-center"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="hover:text-amber-600 transition-colors flex items-center"><span class="material-symbols-outlined" data-icon="settings">settings</span></button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-amber-200">
+<img alt="Administrator Profile" class="w-full h-full object-cover" data-alt="close up professional portrait of a senior magistrate in a business suit with a neutral background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5eQwA2Oauo7t5kqTGtB8e9kipRKvUxVz8CyLSEwIUffNUeOlj6M-pXJVo-tlUZy-sZTRncDtAG1mdYVLbdoFSDwFowYxfHdKFViCwj0bh6YH0hCj8A7EGun1OYjbKBgKnqFCAN-Bo714ihMZ5eaj1-M-9PMhCddel_k2u8rkjcYTFRUJEIMgemLT0lNaQiB5M--Mm2dOPCKQ5DioXzWzInsh_d5VJiepYUw3wtbQtL82VlWX2o6shhGdMs060xq7UYttJI6yhGJVm"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="md:pl-64 min-h-screen">
+<div class="p-8 max-w-7xl mx-auto">
+<!-- Page Header (Editorial Style) -->
+<header class="mb-12 relative">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div>
+<nav class="text-xs font-label text-secondary mb-3 flex items-center gap-2">
+<span>Portal</span>
+<span class="material-symbols-outlined text-[10px]">chevron_right</span>
+<span class="text-primary font-semibold">User Management</span>
+</nav>
+<h1 class="text-5xl font-headline font-bold text-on-background tracking-tight">Associate Directory</h1>
+<p class="text-lg text-secondary mt-2 max-w-xl font-body">Management of the judicial board including certified Arbitrators, Mediators, and Conciliators across all institutional jurisdictions.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-high px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-2 hover:bg-surface-container-highest transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+                            Export Ledger
+                        </button>
+<button class="bg-primary text-on-primary px-6 py-2.5 rounded-lg text-xs font-bold uppercase tracking-widest flex items-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-sm">person_add</span>
+                            Register Associate
+                        </button>
+</div>
+</div>
+</header>
+<!-- Filters Bar -->
+<div class="bg-surface-container-low p-2 rounded-xl mb-8 flex flex-wrap items-center gap-4">
+<div class="flex gap-1 p-1 bg-surface-container-lowest rounded-lg shadow-sm border border-outline-variant/10">
+<button class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase bg-primary text-on-primary">All Ranks</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase text-on-surface-variant hover:bg-surface-container-low transition-colors">Árbitro</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase text-on-surface-variant hover:bg-surface-container-low transition-colors">Mediador</button>
+<button class="px-4 py-1.5 rounded-lg text-xs font-bold uppercase text-on-surface-variant hover:bg-surface-container-low transition-colors">Conciliador</button>
+</div>
+<div class="h-8 w-[1px] bg-outline-variant/30 hidden lg:block"></div>
+<div class="flex-1 min-w-[200px]">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-stone-400 group-focus-within:text-primary transition-colors">filter_list</span>
+<input class="w-full bg-surface-container-lowest border-none rounded-lg py-2 pl-10 pr-4 text-sm focus:ring-2 focus:ring-primary/20 text-on-surface" placeholder="Filter by name, region or document ID..." type="text"/>
+</div>
+</div>
+<button class="p-2 text-secondary hover:text-primary transition-colors">
+<span class="material-symbols-outlined">grid_view</span>
+</button>
+<button class="p-2 text-primary bg-white rounded-lg shadow-sm">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+</button>
+</div>
+<!-- Bento Styled Grid / Table Alternative -->
+<div class="bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_12px_32px_-4px_rgba(13,29,38,0.06)]">
+<div class="overflow-x-auto">
+<table class="w-full border-collapse text-left">
+<thead>
+<tr class="bg-surface-container-high/50 text-on-surface-variant text-[11px] uppercase tracking-[0.15em] font-bold">
+<th class="px-6 py-5">Associate Profile</th>
+<th class="px-6 py-5">Primary Role</th>
+<th class="px-6 py-5">Documentation Status</th>
+<th class="px-6 py-5">Contact Node</th>
+<th class="px-6 py-5 text-right">Administrative</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container-low">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden relative">
+<img alt="Dr. Ricardo Alencar" class="w-full h-full object-cover" data-alt="portrait of a professional latin man with glasses and a friendly expression in a modern office environment" src="https://lh3.googleusercontent.com/aida-public/AB6AXuABFhhLndb7JzKPM7Aap_Ldfd0G6Yy7iijJjEKBcy5qihCii9Clu_pyCoBNu-Vtf70v6_CtTIFhbbTxIYvr_eLbuT3pjsmxGljBKBz0JwKWmp8gapbfLO7HVifkqkUKXs7QrMvFe5TUWXMkfSPEfuEYxB8uYClzU-2Mfw_jywvwiXIlqo5_l6w-dxVg3egWKfgOR4vdo-Wxj0W3WXyEQIRTjBpIlKwKrCi9bDZIIbg-Up1FBLwIQhsonenVYjUCWnxgwiETwVIgenb9"/>
+</div>
+<div>
+<div class="font-headline text-lg font-bold text-on-surface leading-tight">Dr. Ricardo Alencar</div>
+<div class="text-xs font-label text-stone-500 uppercase tracking-tighter">ID: #TJA-2024-0891</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary-container/10 text-primary-container text-xs font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span>
+                                        Árbitro
+                                    </span>
+</td>
+<td class="px-6 py-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface font-medium">Nomeação em Cartório</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface font-medium">Site Institucional</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-secondary">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">ricardo.alencar@tjaem.org</span>
+<span class="text-xs">+55 11 98842-0021</span>
+</div>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Dra. Helena Souza" class="w-full h-full object-cover" data-alt="professional businesswoman portrait with organized dark hair and elegant blazer in a soft lit studio" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCt5JHFviF8Meanq6cQJ4D0YHNsSjKIdiuier6UrcxloRMVgKfAdzcxtlUiq9sfCJCNq_Qnw4dKzxYrJXVXQgNpR9j5acKJ0Jaf2f90G8x6FPaWi7_cAqJFkkW2DnmNrTpXmOvU6nlAiaK-lxqY70rX6ymyvWGNkmfN-ncRYF1BDbmnk32k5d-tbQlpVgFpP3OiVr8r9wonktYEBTuTKpqIGNdxnwqSfSFdRgVaLcmu1x37ZzfcehB5mFAowJENu-vniT2t9Fgzm5VD"/>
+</div>
+<div>
+<div class="font-headline text-lg font-bold text-on-surface leading-tight">Dra. Helena Souza</div>
+<div class="text-xs font-label text-stone-500 uppercase tracking-tighter">ID: #TJA-2024-0712</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-xs font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span>
+                                        Mediador
+                                    </span>
+</td>
+<td class="px-6 py-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface font-medium">Nomeação em Cartório</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm">pending</span>
+<span class="text-xs text-error font-medium">Site Institucional</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-secondary">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">helena.souza@legal.pro</span>
+<span class="text-xs">+55 21 97711-3044</span>
+</div>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/30 transition-colors group">
+<td class="px-6 py-6">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface-container-highest overflow-hidden">
+<img alt="Marcos Venícius" class="w-full h-full object-cover" data-alt="professional male headshot with subtle smile, corporate lighting, outdoors backdrop" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiBLBc10zmzI5KIlD3NBHk-RiNGUOV6rEJlsS4ZdzVU_1MzWzeSWM_j3eiApxzu9Ec0-Tgjp5i-ogyEFGEYcTqQRo05b1O8ih56l1z9zZaiSlYD0hTlG_jd1wIOqkS-SEuxHXVReulfSxlQSo31d4zT-yrWWumnAJ8WwA1pK4o--vuiX_lOsKlVpPF3kxHWEShIs7fYI5t_M7i160K8XJHwOQlyY-7wPfQmO176NtMkBGTPEj6Zn8KV69yvk8dlIg8PrGSgLNHItxH"/>
+</div>
+<div>
+<div class="font-headline text-lg font-bold text-on-surface leading-tight">Marcos Venícius</div>
+<div class="text-xs font-label text-stone-500 uppercase tracking-tighter">ID: #TJA-2023-1102</div>
+</div>
+</div>
+</td>
+<td class="px-6 py-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-tertiary-container/10 text-tertiary text-xs font-bold uppercase tracking-wider">
+<span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+                                        Conciliador
+                                    </span>
+</td>
+<td class="px-6 py-6">
+<div class="space-y-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm">error</span>
+<span class="text-xs text-error font-medium">Nomeação em Cartório</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-xs text-on-surface font-medium">Site Institucional</span>
+</div>
+</div>
+</td>
+<td class="px-6 py-6 text-sm text-secondary">
+<div class="flex flex-col">
+<span class="font-medium text-on-surface">marcos.v@outlook.com</span>
+<span class="text-xs">+55 41 99912-8812</span>
+</div>
+</td>
+<td class="px-6 py-6 text-right">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-stone-400 hover:text-primary transition-all">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Ledger Control -->
+<div class="px-6 py-4 bg-surface-container-low/50 border-t border-surface-container-low flex justify-between items-center">
+<span class="text-xs font-medium text-secondary">Displaying 24 of 1,208 registered associates</span>
+<div class="flex items-center gap-1">
+<button class="p-1.5 text-secondary hover:bg-white rounded transition-colors"><span class="material-symbols-outlined text-sm">first_page</span></button>
+<button class="p-1.5 text-secondary hover:bg-white rounded transition-colors"><span class="material-symbols-outlined text-sm">chevron_left</span></button>
+<div class="flex gap-1 px-4">
+<span class="px-3 py-1 bg-primary text-on-primary text-xs font-bold rounded">1</span>
+<span class="px-3 py-1 text-on-surface-variant text-xs font-medium hover:bg-white rounded cursor-pointer transition-colors">2</span>
+<span class="px-3 py-1 text-on-surface-variant text-xs font-medium hover:bg-white rounded cursor-pointer transition-colors">3</span>
+</div>
+<button class="p-1.5 text-secondary hover:bg-white rounded transition-colors"><span class="material-symbols-outlined text-sm">chevron_right</span></button>
+<button class="p-1.5 text-secondary hover:bg-white rounded transition-colors"><span class="material-symbols-outlined text-sm">last_page</span></button>
+</div>
+</div>
+</div>
+<!-- Judicial Summary Bento Section -->
+<div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="md:col-span-1 bg-white p-6 rounded-xl border border-outline-variant/10">
+<h3 class="text-sm font-label text-secondary uppercase tracking-[0.2em] mb-4">Board Composition</h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium">Árbitros</span>
+<span class="text-primary font-bold">42%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-primary h-full w-[42%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium">Mediadores</span>
+<span class="text-secondary font-bold">35%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-secondary h-full w-[35%] rounded-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs mb-1.5">
+<span class="font-medium">Conciliadores</span>
+<span class="text-tertiary font-bold">23%</span>
+</div>
+<div class="w-full bg-surface-container-low h-1.5 rounded-full">
+<div class="bg-tertiary h-full w-[23%] rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-2 bg-inverse-surface p-6 rounded-xl text-inverse-on-surface relative overflow-hidden">
+<div class="relative z-10">
+<h3 class="text-xl font-headline font-semibold mb-2">Compliance Alert</h3>
+<p class="text-sm opacity-80 max-w-md mb-6 font-body">Documentation for 12 associates in the "São Paulo" jurisdiction will expire within the next 30 days. Action is required to maintain legal standing on the Institutional site.</p>
+<button class="bg-white text-on-background px-6 py-2 rounded-lg text-xs font-bold uppercase tracking-widest hover:bg-primary-fixed hover:text-on-primary-fixed transition-colors">
+                            Audit Pending Docs
+                        </button>
+</div>
+<!-- Decorative Element -->
+<span class="material-symbols-outlined absolute -right-8 -bottom-8 text-[12rem] opacity-5 pointer-events-none">verified_user</span>
+</div>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav Shell -->
+<nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-stone-200/50 flex justify-around items-center px-4 py-3 z-50 md:hidden">
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">article</span>
+<span class="text-[10px] font-label font-medium uppercase">Content</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-amber-800">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group_work</span>
+<span class="text-[10px] font-label font-bold uppercase">Users</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">verified_user</span>
+<span class="text-[10px] font-label font-medium uppercase">Approve</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-stone-500">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+<span class="text-[10px] font-label font-medium uppercase">Finances</span>
+</button>
+</nav>
+</body></html>

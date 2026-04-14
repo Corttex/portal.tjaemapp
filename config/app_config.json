@@ -1,0 +1,17 @@
+{
+  "app_name": "Portal TJAEM",
+  "version": "1.0.0",
+  "features": {
+    "process_management": true,
+    "ead_integration": true,
+    "document_automation": true
+  },
+  "styling": {
+    "primary_color": "#0a84ff",
+    "theme": "dark"
+  },
+  "endpoints": {
+    "ead": "https://ead.tjaembrasil.com.br",
+    "cameb": "https://api.cameb.org.br/v1"
+  }
+}
