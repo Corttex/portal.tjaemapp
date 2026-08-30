@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "start": "node serve.js",
     "dev": "node serve.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
