@@ -1,0 +1,24 @@
+# TJAEM & CAMEB - Contexto do Sistema
+
+TJAEM (Tribunal de Justiça Arbitral e Mediação) atua como braço executor do regulamento CAMEB (Câmara / Conselho de Arbitragem e Mediação do Brasil). Toda petição, ata e sentença segue as Diretrizes Normativas CAMEB.
+
+## Ecossistema TJAEM
+- **Frontend**: Portais de Associados/Magistrados, Painel Master, Hub de Automação, Gestão de Casos, OCR, EAD, Conformidade CAMEB.
+- **Orquestração (n8n)**: Ingestão de processos, alertas de prazos, captura OCR.
+- **Armazenamento**: AWS RDS PostgreSQL (processos, usuarios, cursos_ead, system_logs), AWS S3 (tjaem-central-arquivos-prod).
+- **Dados & Analytics**: Stitch Data + Google BigQuery (ELT a cada 30min).
+- **Padronização CAMEB**: Cabeçalho e rodapé normativo, JSON schemas, contagem de prazos úteis.
+
+## Fluxo Processual
+1. Entrada via formulário/API -> criação de pasta S3, registro Postgres, sugestão de EAD.
+2. Notificação partes via e-mail/WhatsApp (n8n).
+3. Audiência e ata automática.
+4. Upload de provas com OCR e validação SHA-256.
+5. Sentença gerada com embasamento CAMEB, validação JSON e assinatura digital.
+6. Arquivamento e sincronização com BigQuery.
+
+## Evoluções Planejadas
+1. Assinatura Digital ICP-Brasil/Gov.br e QR Code validador público.
+2. API Backend Dedicada e AWS Secrets Manager para credenciais (OpenRouter/RDS).
+3. Transcrição automática de audiências e RAG Jurídico sobre a base CAMEB.
+4. Balcão Virtual para partes e módulo financeiro (Pix/Boleto).

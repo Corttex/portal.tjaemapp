@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="dark">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>TJAEM — Automation Hub</title>
+  <title>TJAEM — Agent & Skill Orchestrator Studio</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
   <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Work+Sans:wght@300;400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
@@ -13,24 +13,23 @@
       theme: {
         extend: {
           colors: {
-            surface: '#0a0a0a',
-            'surface-container-lowest': '#121212',
-            'surface-container-low': '#1a1a1a',
-            'surface-container': '#242424',
-            'surface-container-high': '#2e2e2e',
-            'on-surface': '#f5f5f5',
-            'on-surface-variant': '#d4d4d4',
-            outline: '#525252',
-            'outline-variant': '#404040',
+            surface: 'var(--surface)',
+            'surface-container-lowest': 'var(--surface-lowest)',
+            'surface-container-low': 'var(--surface-low)',
+            'surface-container': 'var(--surface-container)',
+            'surface-container-high': 'var(--surface-high)',
+            'on-surface': 'var(--on-surface)',
+            'on-surface-variant': 'var(--on-surface-variant)',
+            outline: 'var(--outline)',
+            'outline-variant': 'var(--outline-variant)',
             primary: '#d4af37',
-            'on-primary': '#1a1a1a',
-            'primary-container': '#4a3c10',
-            'on-primary-container': '#fcebb6',
-            secondary: '#a3a3a3',
+            'on-primary': 'var(--on-primary)',
+            'primary-container': 'var(--primary-container)',
+            'on-primary-container': 'var(--on-primary-container)',
+            secondary: 'var(--secondary)',
             tertiary: '#22c55e',
-            'tertiary-container': '#14532d',
+            'tertiary-container': 'var(--tertiary-container)',
             error: '#ef4444',
-            'error-container': '#7f1d1d',
           },
           fontFamily: {
             headline: ['Newsreader'],
@@ -43,136 +42,261 @@
   </script>
   <style>
     .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    :root {
+      --primary: #d4af37;
+      --on-primary: #ffffff;
+      --surface: #f8fafc;
+      --surface-lowest: #ffffff;
+      --surface-low: #f1f5f9;
+      --surface-container: #e2e8f0;
+      --surface-high: #cbd5e1;
+      --on-surface: #0f172a;
+      --on-surface-variant: #334155;
+      --outline: #94a3b8;
+      --outline-variant: #cbd5e1;
+      --primary-container: #fef3c7;
+      --on-primary-container: #78350f;
+      --secondary: #64748b;
+      --tertiary-container: #dcfce7;
+
+      --glass-panel-bg: rgba(255, 255, 255, 0.75);
+      --glass-panel-border: rgba(0, 0, 0, 0.08);
+    }
+
+    .dark {
+      --on-primary: #1a1a1a;
+      --surface: #0a0a0a;
+      --surface-lowest: #121212;
+      --surface-low: #1a1a1a;
+      --surface-container: #242424;
+      --surface-high: #2e2e2e;
+      --on-surface: #f5f5f5;
+      --on-surface-variant: #d4d4d4;
+      --outline: #525252;
+      --outline-variant: #404040;
+      --primary-container: #4a3c10;
+      --on-primary-container: #fcebb6;
+      --secondary: #a3a3a3;
+      --tertiary-container: #14532d;
+
+      --glass-panel-bg: rgba(26, 26, 26, 0.75);
+      --glass-panel-border: rgba(255, 255, 255, 0.08);
+    }
+
     .glass-panel {
-      background: rgba(26, 26, 26, 0.7);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 1px solid rgba(255, 255, 255, 0.06);
+      background: var(--glass-panel-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-panel-border);
     }
     @keyframes pulse-glow {
       0%, 100% { box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
       50%       { box-shadow: 0 0 22px rgba(212, 175, 55, 0.7); }
     }
     .pulse-gold { animation: pulse-glow 2s ease-in-out infinite; }
-    @keyframes spin-slow { to { transform: rotate(360deg); } }
-    .spin-slow { animation: spin-slow 3s linear infinite; }
   </style>
 </head>
 <body class="bg-surface text-on-surface font-body min-h-screen flex flex-col">
 
-  <!-- Top Nav -->
+  <!-- Header -->
   <header class="sticky top-0 z-50 glass-panel px-6 py-3 flex items-center justify-between border-b border-white/5">
     <div class="flex items-center gap-3">
-      <a href="/app_build/" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors">
+      <a href="/" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors">
         <span class="material-symbols-outlined text-lg">arrow_back</span>
         <span class="text-sm font-label">Portal TJAEM</span>
       </a>
       <span class="text-outline">·</span>
-      <span class="text-primary font-headline italic text-lg">Automation Hub</span>
+      <span class="text-primary font-headline italic text-lg">Agent & Skill Orchestrator Studio</span>
     </div>
-    <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-secondary">smart_toy</span>
-      <span class="text-xs font-label text-secondary uppercase tracking-widest">n8n Workflows</span>
+    <div class="flex items-center gap-4">
+      <button onclick="toggleTheme()" class="p-2 rounded-full hover:bg-surface-container transition-colors text-secondary hover:text-primary flex items-center justify-center" title="Alternar Tema">
+        <span class="material-symbols-outlined text-sm" id="theme-icon">dark_mode</span>
+      </button>
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+        <span class="text-xs font-label text-tertiary font-semibold uppercase tracking-wider">Engine Nativa Online</span>
+      </div>
     </div>
   </header>
 
-  <main class="flex-1 flex flex-col items-center justify-center p-8">
+  <main class="flex-1 p-8 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-    <!-- Main card -->
-    <div class="glass-panel rounded-2xl p-10 max-w-lg w-full text-center shadow-2xl mb-8">
-      <!-- Icon -->
-      <div class="relative inline-flex mb-6">
-        <div class="w-20 h-20 rounded-full bg-primary-container flex items-center justify-center pulse-gold">
-          <span class="material-symbols-outlined text-4xl text-primary" style="font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 48">auto_mode</span>
-        </div>
+    <!-- Left Column: Available Skills -->
+    <section class="glass-panel rounded-2xl p-6 flex flex-col">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="font-headline text-2xl text-on-surface flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">extension</span>
+          Skills Nativas
+        </h2>
+        <span class="text-xs text-secondary font-label bg-surface-container-high px-2.5 py-1 rounded-full">5 Disponíveis</span>
       </div>
-
-      <h1 class="font-headline text-4xl mb-2 text-on-surface">Automation Hub</h1>
-      <p class="text-secondary text-sm mb-8 leading-relaxed">
-        O motor de automação <strong class="text-primary">n8n</strong> processa workflows TJAEM: aprovações de membros, OCR de documentos e alertas institucionais.
+      <p class="text-xs text-secondary mb-6 leading-relaxed">
+        Blocos funcionais integrados sem intermediários externos. Arraste e execute diretamente nos pipelines de Agentes.
       </p>
 
-      <!-- Status indicator -->
-      <div id="status-box" class="bg-surface-container rounded-xl p-5 mb-6 border border-outline-variant/30">
-        <div class="flex items-center justify-center gap-3 mb-2">
-          <span id="status-dot" class="w-3 h-3 rounded-full bg-outline spin-slow inline-block"></span>
-          <span id="status-text" class="text-sm font-label font-semibold text-secondary">Verificando conexão...</span>
-        </div>
-        <p class="text-xs text-secondary/50 font-label">n8n Endpoint: <code class="text-primary/80">portal.tjaembrasil.com.br/automation</code></p>
-      </div>
-
-      <!-- Workflow tiles -->
-      <div class="grid grid-cols-2 gap-4 mb-8 text-left">
-        <div class="bg-surface-container-high rounded-lg p-4 border border-outline-variant/20">
-          <span class="material-symbols-outlined text-primary text-xl mb-2 block">verified_user</span>
-          <p class="text-xs font-label font-bold text-on-surface">Habilitação CAMEB</p>
-          <p class="text-[10px] text-secondary mt-1">Aprovação automática + email</p>
-        </div>
-        <div class="bg-surface-container-high rounded-lg p-4 border border-outline-variant/20">
-          <span class="material-symbols-outlined text-primary text-xl mb-2 block">document_scanner</span>
-          <p class="text-xs font-label font-bold text-on-surface">OCR de Documentos</p>
-          <p class="text-[10px] text-secondary mt-1">Extração e indexação de textos</p>
-        </div>
-        <div class="bg-surface-container-high rounded-lg p-4 border border-outline-variant/20">
-          <span class="material-symbols-outlined text-primary text-xl mb-2 block">schedule</span>
-          <p class="text-xs font-label font-bold text-on-surface">Monitor de Prazos</p>
-          <p class="text-[10px] text-secondary mt-1">Alertas 24h antes do vencimento</p>
-        </div>
-        <div class="bg-surface-container-high rounded-lg p-4 border border-outline-variant/20">
-          <span class="material-symbols-outlined text-primary text-xl mb-2 block">mail</span>
-          <p class="text-xs font-label font-bold text-on-surface">Notificações Email</p>
-          <p class="text-[10px] text-secondary mt-1">SMTP via Zoho / Brevo</p>
+      <div id="skills-list" class="space-y-3 flex-1 overflow-y-auto pr-1">
+        <!-- JS Loaded -->
+        <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/30 animate-pulse text-xs text-secondary">
+          Carregando catálogo de skills...
         </div>
       </div>
+    </section>
 
-      <!-- CTA -->
-      <a href="https://portal.tjaembrasil.com.br/automation" target="_blank"
-         class="inline-flex items-center gap-2 bg-primary hover:bg-amber-400 text-on-primary px-8 py-3 rounded-lg font-label font-bold text-sm uppercase tracking-widest transition-all shadow-lg">
-        <span class="material-symbols-outlined text-sm">open_in_new</span>
-        Abrir n8n em Produção
-      </a>
-      <p class="text-[10px] text-secondary/50 mt-4 font-label">Requer VPN ou acesso AWS EC2</p>
-    </div>
+    <!-- Center & Right Column: Active Pipelines & Live Orchestrator -->
+    <section class="lg:col-span-2 space-y-8">
+      
+      <!-- Studio Header -->
+      <div class="glass-panel rounded-2xl p-8 border-l-4 border-primary">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <span class="text-[10px] uppercase font-label tracking-widest text-primary font-bold">Orquestração em Tempo Real</span>
+            <h1 class="font-headline text-3xl text-on-surface mt-1">Pipelines de Agentes Ativos</h1>
+          </div>
+          <button onclick="runPipeline('pipe_01')" class="bg-primary hover:bg-amber-400 text-on-primary px-6 py-2.5 rounded-xl font-label font-bold text-xs uppercase tracking-wider transition-all shadow-lg flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">play_arrow</span>
+            Executar Pipeline
+          </button>
+        </div>
+        <p class="text-sm text-secondary leading-relaxed">
+          Sem dependência de n8n ou ferramentas de terceiros. Seu ecossistema processa fluxos autônomos de RAG, OCR, validação de conformidade CAMEB e inteligência arbitral diretamente na API interna.
+        </p>
+      </div>
 
-    <!-- Info note -->
-    <div class="glass-panel rounded-xl p-5 max-w-lg w-full border-l-4 border-primary/40">
-      <p class="text-xs text-secondary font-label leading-relaxed">
-        <span class="material-symbols-outlined text-primary text-sm align-middle mr-1">info</span>
-        Em <strong class="text-on-surface">desenvolvimento local</strong>, o n8n não está disponível aqui.
-        Para testar workflows, acesse a instância AWS ou execute <code class="text-primary bg-surface-container-low px-1 py-0.5 rounded">docker compose -f infrastructure/docker-compose-n8n.yml up</code>.
-      </p>
-    </div>
+      <!-- Active Pipelines List -->
+      <div class="glass-panel rounded-2xl p-6">
+        <h3 class="font-headline text-xl text-on-surface mb-4 flex items-center gap-2">
+          <span class="material-symbols-outlined text-primary">account_tree</span>
+          Fluxos Orquestrados
+        </h3>
+
+        <div id="pipelines-list" class="space-y-4">
+          <!-- JS Loaded -->
+          <div class="p-4 rounded-xl bg-surface-container border border-outline-variant/30 animate-pulse text-xs text-secondary">
+            Carregando fluxos ativos...
+          </div>
+        </div>
+      </div>
+
+      <!-- Execution Console -->
+      <div class="glass-panel rounded-2xl p-6 bg-surface-container-lowest">
+        <div class="flex items-center justify-between mb-3">
+          <span class="text-xs font-label uppercase tracking-widest text-secondary flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm text-tertiary">terminal</span>
+            Log de Execução em Tempo Real
+          </span>
+          <span class="text-[10px] text-secondary font-label">Engine Express / API v1</span>
+        </div>
+        <pre id="execution-log" class="bg-surface rounded-xl p-4 text-xs font-mono text-emerald-400 border border-outline-variant/20 overflow-x-auto min-h-[100px]">
+[SYSTEM] Agent Orchestration Studio inicializado. Conectado ao endpoint /api/v1/agents.
+[INFO] Pronto para executar fluxos autônomos de agentes e skills.
+        </pre>
+      </div>
+    </section>
+
   </main>
 
-  <footer class="py-4 text-center text-[10px] text-secondary/40 font-label uppercase tracking-widest">
-    © 2024 TJAEM · Automation Hub · Powered by n8n
-  </footer>
-
   <script>
-    // Try to ping the n8n endpoint
-    async function checkStatus() {
-      const dot = document.getElementById('status-dot');
-      const text = document.getElementById('status-text');
+    async function loadSkills() {
+      const listEl = document.getElementById('skills-list');
       try {
-        const res = await fetch('/automation/healthz', { method: 'GET', signal: AbortSignal.timeout(3000) });
-        if (res.ok) {
-          dot.classList.remove('bg-outline', 'spin-slow');
-          dot.classList.add('bg-tertiary');
-          text.textContent = 'n8n Online — Workflows Ativos';
-          text.classList.remove('text-secondary');
-          text.classList.add('text-tertiary');
-        } else {
-          throw new Error('not ok');
+        const res = await fetch('/api/v1/agents/skills');
+        const data = await res.json();
+        if (data.success) {
+          listEl.innerHTML = data.skills.map(s => `
+            <div class="p-4 rounded-xl bg-surface-container hover:bg-surface-container-high border border-outline-variant/30 transition-all flex items-center justify-between group">
+              <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-primary-container/40 flex items-center justify-center text-primary group-hover:text-amber-300">
+                  <span class="material-symbols-outlined text-xl">${s.icon}</span>
+                </div>
+                <div>
+                  <h4 class="text-xs font-label font-semibold text-on-surface">${s.name}</h4>
+                  <span class="text-[10px] text-secondary uppercase font-label tracking-wider">${s.category}</span>
+                </div>
+              </div>
+              <span class="material-symbols-outlined text-secondary text-sm group-hover:text-primary transition-colors">add_circle</span>
+            </div>
+          `).join('');
         }
-      } catch {
-        dot.classList.remove('spin-slow');
-        dot.classList.add('bg-error');
-        text.textContent = 'n8n indisponível neste ambiente (local)';
-        text.classList.remove('text-secondary');
-        text.classList.add('text-on-surface-variant');
+      } catch (err) {
+        listEl.innerHTML = `<div class="p-3 text-xs text-error">Erro ao carregar skills.</div>`;
       }
     }
-    checkStatus();
+
+    async function loadPipelines() {
+      const pipeEl = document.getElementById('pipelines-list');
+      try {
+        const res = await fetch('/api/v1/agents/pipelines');
+        const data = await res.json();
+        if (data.success) {
+          pipeEl.innerHTML = data.pipelines.map(p => `
+            <div class="p-5 rounded-xl bg-surface-container-low border border-outline-variant/30 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div>
+                <div class="flex items-center gap-2 mb-1">
+                  <span class="w-2 h-2 rounded-full bg-tertiary"></span>
+                  <h4 class="text-sm font-label font-bold text-on-surface">${p.name}</h4>
+                </div>
+                <p class="text-xs text-secondary">Steps: <code class="text-primary font-mono">${p.steps.join(' ➔ ')}</code></p>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-[10px] text-secondary font-label">Última execução: ${new Date(p.lastRun).toLocaleTimeString()}</span>
+                <button onclick="runPipeline('${p.id}')" class="px-4 py-2 rounded-lg bg-surface-container-high hover:bg-primary hover:text-on-primary text-xs font-label font-semibold transition-all">
+                  Executar
+                </button>
+              </div>
+            </div>
+          `).join('');
+        }
+      } catch (err) {
+        pipeEl.innerHTML = `<div class="p-3 text-xs text-error">Erro ao carregar pipelines.</div>`;
+      }
+    }
+
+    async function runPipeline(id) {
+      const logEl = document.getElementById('execution-log');
+      logEl.textContent += `\n[RUN] Disparando pipeline ID: ${id}...`;
+      try {
+        const res = await fetch(`/api/v1/agents/pipelines/${id}/run`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          logEl.textContent += `\n[SUCCESS] Pipeline executado! Steps: ${data.executedSteps.map(s => s.stepId).join(', ')}`;
+          loadPipelines();
+        }
+      } catch (err) {
+        logEl.textContent += `\n[ERROR] Falha na execução do pipeline: ${err.message}`;
+      }
+    }
+
+    // Theme Toggle Function
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        icon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+      document.documentElement.classList.add('dark');
+      if (document.getElementById('theme-icon')) {
+        document.getElementById('theme-icon').textContent = 'light_mode';
+      }
+    } else {
+      document.documentElement.classList.remove('dark');
+      if (document.getElementById('theme-icon')) {
+        document.getElementById('theme-icon').textContent = 'dark_mode';
+      }
+    }
+
+    loadSkills();
+    loadPipelines();
   </script>
 </body>
 </html>

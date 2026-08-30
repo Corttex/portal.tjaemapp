@@ -12,7 +12,10 @@
       "Bash(xcopy *)",
       "Bash(aws *)",
       "Bash(\"c:\\program files\\amazon\\awscliv2\\aws.exe\" *)",
-      "Bash(start *)"
+      "Bash(start *)",
+      "Bash(powershell *)",
+      "Bash(get-command *)",
+      "Bash(taskkill *)"
     ]
   },
   "$version": 3

@@ -39,7 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const PROXY_URL = '/api/ai/chat'; // Configurado no Caddy para rotear para o proxy
 
     // DESENVOLVIMENTO: Usar localStorage para teste rápido
-    const OPENROUTER_API_KEY = USE_PROXY ? null : (process.env.OPENROUTER_API_KEY || localStorage.getItem('openrouter_api_key') || '');
+    const OPENROUTER_API_KEY = USE_PROXY ? null : (
+        (typeof process !== 'undefined' && process.env ? process.env.OPENROUTER_API_KEY : null) || 
+        localStorage.getItem('openrouter_api_key') || 
+        ''
+    );
 
     if (!USE_PROXY && !OPENROUTER_API_KEY) {
         console.warn('⚠️ OPENROUTER_API_KEY não configurada. Configure via variável de ambiente ou insira no localStorage.');

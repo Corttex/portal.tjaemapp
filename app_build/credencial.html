@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAMEB — Declaração de Aptidão Profissional</title>
+  <meta name="description" content="Validação pública de credencial de associado CAMEB / TJAEM Brasil. Verifique se o profissional está ativo e credenciado.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&family=Work+Sans:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: 'var(--surface)',
+            'surface-container-lowest': 'var(--surface-lowest)',
+            'surface-container-low': 'var(--surface-low)',
+            'surface-container': 'var(--surface-container)',
+            'surface-container-high': 'var(--surface-high)',
+            'on-surface': 'var(--on-surface)',
+            'on-surface-variant': 'var(--on-surface-variant)',
+            outline: 'var(--outline)',
+            'outline-variant': 'var(--outline-variant)',
+            primary: '#d4af37',
+            'on-primary': 'var(--on-primary)',
+            'primary-container': 'var(--primary-container)',
+            secondary: 'var(--secondary)',
+            tertiary: '#22c55e',
+            error: '#ef4444',
+          },
+          fontFamily: {
+            headline: ['Newsreader', 'serif'],
+            body: ['Work Sans', 'sans-serif'],
+            label: ['Inter', 'sans-serif'],
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --surface: #f8fafc;
+      --surface-lowest: #ffffff;
+      --surface-low: #f1f5f9;
+      --surface-container: #e2e8f0;
+      --surface-high: #cbd5e1;
+      --on-surface: #0f172a;
+      --on-surface-variant: #334155;
+      --outline: #94a3b8;
+      --outline-variant: #cbd5e1;
+      --on-primary: #ffffff;
+      --primary-container: #fef3c7;
+      --secondary: #64748b;
+      --glass-panel-bg: rgba(255,255,255,0.82);
+      --glass-panel-border: rgba(0,0,0,0.07);
+      --doc-bg: #ffffff;
+      --doc-shadow: 0 25px 80px -20px rgba(0,0,0,0.12);
+    }
+    .dark {
+      --surface: #0a0a0d;
+      --surface-lowest: #121217;
+      --surface-low: #191921;
+      --surface-container: #21212c;
+      --surface-high: #2b2b38;
+      --on-surface: #f8fafc;
+      --on-surface-variant: #94a3b8;
+      --outline: #475569;
+      --outline-variant: #334155;
+      --on-primary: #0f172a;
+      --primary-container: #3f3209;
+      --secondary: #64748b;
+      --glass-panel-bg: rgba(25,25,33,0.82);
+      --glass-panel-border: rgba(255,255,255,0.07);
+      --doc-bg: #13131a;
+      --doc-shadow: 0 25px 80px -20px rgba(0,0,0,0.5);
+    }
+    * { box-sizing: border-box; transition: background-color 0.2s ease, border-color 0.2s ease; }
+    .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; vertical-align: middle; }
+    .judicial-gradient { background: linear-gradient(135deg, #d4af37 0%, #aa841e 100%); }
+    .glass-panel {
+      background: var(--glass-panel-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-panel-border);
+    }
+    .doc-card {
+      background: var(--doc-bg);
+      box-shadow: var(--doc-shadow);
+    }
+    .status-verified {
+      background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
+      border: 2px solid #22c55e;
+    }
+    .dark .status-verified {
+      background: rgba(34,197,94,0.12);
+      border-color: rgba(34,197,94,0.4);
+    }
+    @keyframes pulse-ring {
+      0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(34,197,94,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+    }
+    .pulse-verified { animation: pulse-ring 2.5s ease-out infinite; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .fade-in { animation: fadeIn 0.5s cubic-bezier(0.4,0,0.2,1) both; }
+    @media print {
+      .no-print { display: none !important; }
+      .doc-card { box-shadow: none !important; }
+      body { background: #fff !important; }
+    }
+  </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased min-h-screen">
+
+  <!-- Top Bar -->
+  <header class="no-print sticky top-0 z-50 glass-panel border-b border-outline-variant/30">
+    <div class="max-w-5xl mx-auto px-6 py-3.5 flex items-center justify-between">
+      <a href="/associados" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors text-sm font-label">
+        <span class="material-symbols-outlined text-base">arrow_back</span>
+        Diretório de Associados
+      </a>
+      <div class="flex items-center gap-2">
+        <button onclick="window.print()" class="p-2 rounded-xl hover:bg-surface-container transition-colors text-secondary hover:text-primary" title="Imprimir / Salvar PDF">
+          <span class="material-symbols-outlined text-sm">print</span>
+        </button>
+        <button onclick="shareCredential()" class="p-2 rounded-xl hover:bg-surface-container transition-colors text-secondary hover:text-primary" title="Compartilhar">
+          <span class="material-symbols-outlined text-sm">share</span>
+        </button>
+        <button onclick="toggleTheme()" class="p-2 rounded-xl hover:bg-surface-container transition-colors text-secondary hover:text-primary" title="Alternar Tema">
+          <span class="material-symbols-outlined" id="theme-icon">dark_mode</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-4 py-10 fade-in">
+
+    <!-- Validation Banner -->
+    <div class="status-verified rounded-2xl p-4 mb-8 flex items-center gap-4 no-print">
+      <div class="w-10 h-10 bg-green-500 rounded-full flex items-center justify-center pulse-verified flex-shrink-0">
+        <span class="material-symbols-outlined text-white text-xl" style="font-variation-settings:'FILL' 1">verified</span>
+      </div>
+      <div>
+        <p class="font-label font-bold text-green-800 dark:text-green-300 text-sm">Credencial Válida e Verificada</p>
+        <p class="text-xs text-green-700 dark:text-green-400">Este profissional está ativo e regularmente credenciado junto ao CAMEB / TJAEM Brasil.</p>
+      </div>
+      <div class="ml-auto text-right">
+        <p class="text-[10px] font-label font-bold text-green-800 dark:text-green-400 uppercase tracking-widest">Verificado em</p>
+        <p class="text-xs font-bold text-green-900 dark:text-green-300" id="verification-date"></p>
+      </div>
+    </div>
+
+    <!-- Document Card -->
+    <div class="doc-card rounded-3xl overflow-hidden border border-outline-variant/30">
+
+      <!-- Document Header -->
+      <div class="judicial-gradient p-8 text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10">
+          <img src="https://tjaembrasil.com.br/wp-content/uploads/2025/03/Fav.png" alt="" class="w-64 h-64 object-contain absolute -right-8 -top-8">
+        </div>
+        <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div class="flex items-center gap-5">
+            <img src="https://tjaembrasil.com.br/wp-content/uploads/2025/03/Fav.png" alt="TJAEM" class="h-16 w-16 object-contain drop-shadow-xl">
+            <div class="text-left">
+              <h1 class="font-headline text-2xl font-bold text-white leading-none">CAMEB</h1>
+              <p class="text-[10px] font-label font-bold uppercase tracking-widest text-amber-100 mt-1 leading-tight">Câmara Arbitral e Mediação<br>dos Estados Brasileiros</p>
+            </div>
+          </div>
+          <div class="text-center sm:text-right">
+            <p class="text-[10px] font-label font-bold uppercase tracking-widest text-amber-100">Portaria CAMEB</p>
+            <p class="font-headline text-3xl font-bold text-white mt-1">Nº 1-<span id="assoc-id">00000</span>/2026</p>
+            <span class="mt-2 inline-block bg-white/20 border border-white/30 px-4 py-1 rounded-full text-[10px] font-label font-bold uppercase tracking-widest text-white">Renovação 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Document Body -->
+      <div class="p-8 md:p-12">
+
+        <!-- Title -->
+        <div class="text-center mb-10">
+          <p class="text-[10px] font-label font-bold uppercase tracking-widest text-primary mb-2">Documento Oficial</p>
+          <h2 class="font-headline text-3xl font-bold text-on-surface">Declaração de Aptidão Profissional</h2>
+          <div class="h-1 w-24 judicial-gradient rounded-full mx-auto mt-4"></div>
+        </div>
+
+        <!-- Profile Area -->
+        <div class="flex flex-col md:flex-row gap-8 items-start mb-10 p-6 bg-surface-container-low rounded-2xl border border-outline-variant/30">
+          <div class="relative flex-shrink-0">
+            <img id="assoc-photo"
+              src="https://ui-avatars.com/api/?name=Associado+TJAEM&size=300&background=2c3e50&color=fff&bold=true"
+              alt="Foto do Associado"
+              class="w-36 h-44 object-cover rounded-xl shadow-lg border-2 border-primary/30">
+            <div class="absolute -bottom-2 -right-2 w-8 h-8 judicial-gradient rounded-full flex items-center justify-center shadow-lg">
+              <span class="material-symbols-outlined text-white text-sm" style="font-variation-settings:'FILL' 1">verified</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-2">Associado Ativo CAMEB</p>
+            <h3 class="font-headline text-2xl font-bold text-on-surface mb-3" id="assoc-name">NOME DO ASSOCIADO</h3>
+            <div class="grid grid-cols-2 gap-3 text-sm">
+              <div>
+                <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-0.5">Registro CAMEB</p>
+                <p class="font-bold text-primary font-label" id="assoc-reg">#00000</p>
+              </div>
+              <div>
+                <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-0.5">Situação</p>
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-green-400"></span>
+                  <span class="font-bold text-green-600 dark:text-green-400 font-label text-xs">ATIVO</span>
+                </div>
+              </div>
+              <div>
+                <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-0.5">Validade</p>
+                <p class="font-bold text-on-surface font-label text-sm">Agosto / 2027</p>
+              </div>
+              <div>
+                <p class="text-[10px] font-label font-bold uppercase tracking-widest text-on-surface-variant mb-0.5">Competência</p>
+                <p class="font-bold text-on-surface font-label text-sm">Mediação · Arbitragem</p>
+              </div>
+            </div>
+            <div class="mt-4 flex flex-wrap gap-2">
+              <a href="/associados" class="judicial-gradient text-on-primary px-5 py-2 rounded-full text-xs font-label font-bold uppercase tracking-wider hover:opacity-90 transition-all inline-flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-sm">groups</span>
+                Ver Lista TJAEM
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Legal Text -->
+        <div class="text-[14px] text-on-surface-variant space-y-5 leading-relaxed text-justify border-t border-outline-variant/30 pt-8">
+          <p><strong class="text-on-surface">CAMEB – Câmara Arbitral e Mediação dos Estados Brasileiros</strong>, no uso de suas atribuições, considerando os princípios éticos e legais que norteiam suas atividades, resolve:</p>
+          <p><strong class="text-on-surface">Art. 1º</strong> Declarar, para os devidos fins, que o(a) associado(a) inscrito(a) regularmente no cadastro desta Instituição encontra-se apto(a) ao pleno exercício de suas atividades como <strong class="text-on-surface">mediador(a), árbitro(a) ou facilitador(a)</strong>, em conformidade com as normas e diretrizes aplicáveis à mediação e arbitragem no Brasil, para o período integral do ano de 2026.</p>
+          <p><strong class="text-on-surface">Art. 2º</strong> O associado cumpre integralmente os requisitos legais e éticos previstos na <strong class="text-on-surface">Lei nº 9.307/1996</strong> (Lei de Arbitragem), bem como está em conformidade com os parâmetros estabelecidos pelo Código de Ética de Mediadores e Árbitros.</p>
+          <p><strong class="text-on-surface">Art. 3º</strong> Reconhecemos que o(a) mediador(a) e árbitro(a) desempenha funções essenciais à pacificação social e à resolução de conflitos, promovendo o diálogo, a imparcialidade e o respeito mútuo entre as partes.</p>
+          <p><strong class="text-on-surface">Art. 4º</strong> Este documento tem validade em todo o território nacional e é emitido em conformidade com as normas internas da CAMEB e a legislação vigente. A autenticidade pode ser verificada em <strong class="text-primary">portal.tjaembrasil.com.br/credencial/<span id="assoc-id-inline">00000</span></strong>.</p>
+          <p class="text-sm text-on-surface-variant pt-4">Emitido e assinado digitalmente em Brasília, DF, Agosto de 2026.</p>
+
+          <!-- Signature -->
+          <div class="pt-6 flex flex-col items-start">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Assinatura_Lula.svg" alt="Assinatura Digital CAMEB"
+              class="h-16 opacity-60" style="filter: sepia(80%) hue-rotate(25deg); mix-blend-mode: multiply;">
+            <div class="border-t-2 border-on-surface w-72 pt-2 mt-1">
+              <p class="text-xs font-label font-bold text-on-surface text-center uppercase tracking-wider">Diretoria Executiva CAMEB / TJAEM Brasil</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- QR + Verify Footer -->
+        <div class="mt-10 p-6 bg-surface-container-low rounded-2xl border border-outline-variant/30 flex flex-col sm:flex-row items-center gap-6">
+          <div class="flex-shrink-0">
+            <div id="qr-placeholder" class="w-24 h-24 bg-surface-container rounded-xl flex items-center justify-center border border-outline-variant/40">
+              <span class="material-symbols-outlined text-4xl text-primary">qr_code_2</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[10px] font-label font-bold uppercase tracking-widest text-primary mb-1">Verificação Pública</p>
+            <p class="text-sm text-on-surface font-semibold mb-1">Escaneie o QR Code para validar esta credencial</p>
+            <p class="text-xs text-on-surface-variant">Este documento é de natureza pública. Qualquer pessoa pode verificar a autenticidade pelo endereço acima.</p>
+          </div>
+          <div class="ml-auto flex-shrink-0">
+            <div class="flex items-center gap-1.5 bg-green-100 dark:bg-green-900/30 border border-green-300 dark:border-green-700 px-4 py-2 rounded-full">
+              <span class="w-2 h-2 rounded-full bg-green-400 pulse-verified"></span>
+              <span class="text-xs font-label font-bold text-green-800 dark:text-green-300 uppercase tracking-wider">Verificado</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="no-print border-t border-outline-variant/30 mt-10">
+    <div class="max-w-4xl mx-auto px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-[10px] text-on-surface-variant font-label uppercase tracking-widest">© 2026 TJAEM Brasil · Câmara Arbitral e Mediação</p>
+      <div class="flex items-center gap-1 text-[10px] text-on-surface-variant font-label uppercase tracking-widest">
+        <span class="material-symbols-outlined text-xs text-primary">shield</span>
+        Documento protegido com criptografia SSL
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ── Preencher dados dinâmicos ──────────────────────────────────────────────
+    const pathParts = window.location.pathname.split('/');
+    const credId = pathParts[pathParts.length - 1] || '01686';
+
+    // Dados mock — substituir por fetch da API real
+    const mockData = {
+      '01686': { name: 'WILLIAN SIMÕES DA SILVA', color: '2c3e50', role: 'Mediador Sênior' },
+      '02144': { name: 'ANA PAULA G. MENDES', color: '8a6d3b', role: 'Juíza Arbitral' },
+      '03891': { name: 'CARLOS E. SAMPAIO', color: '1f2937', role: 'Perito Imobiliário' },
+      '04512': { name: 'FERNANDA R. COSTA', color: '7c3aed', role: 'Árbitro Trabalhista' },
+      '05103': { name: 'DR. JOÃO DOURADO NETO', color: 'b45309', role: 'Árbitro Sênior' },
+    };
+
+    const member = mockData[credId] || { name: 'ASSOCIADO TJAEM', color: '2c3e50', role: 'Árbitro · Mediador' };
+
+    document.querySelectorAll('#assoc-id, #assoc-id-inline').forEach(el => el.textContent = credId);
+    document.getElementById('assoc-reg').textContent = `#${credId}`;
+    document.getElementById('assoc-name').textContent = member.name;
+    document.getElementById('assoc-photo').src =
+      `https://ui-avatars.com/api/?name=${encodeURIComponent(member.name)}&size=300&background=${member.color}&color=fff&bold=true`;
+    document.getElementById('verification-date').textContent =
+      new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' });
+
+    function shareCredential() {
+      const url = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title: `Credencial CAMEB — ${member.name}`, url });
+      } else {
+        navigator.clipboard.writeText(url).then(() => alert('Link copiado:\n' + url));
+      }
+    }
+
+    // ── Theme Toggle ──────────────────────────────────────────────────────────
+    function toggleTheme() {
+      const html = document.documentElement;
+      const icon = document.getElementById('theme-icon');
+      if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        icon.textContent = 'dark_mode';
+        localStorage.setItem('theme', 'light');
+      } else {
+        html.classList.add('dark');
+        icon.textContent = 'light_mode';
+        localStorage.setItem('theme', 'dark');
+      }
+    }
+    (function initTheme() {
+      const saved = localStorage.getItem('theme');
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const icon = document.getElementById('theme-icon');
+      if (saved === 'dark' || (!saved && prefersDark)) {
+        document.documentElement.classList.add('dark');
+        if (icon) icon.textContent = 'light_mode';
+      } else {
+        document.documentElement.classList.remove('dark');
+        if (icon) icon.textContent = 'dark_mode';
+      }
+    })();
+  </script>
+</body>
+</html>

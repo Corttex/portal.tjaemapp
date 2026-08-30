@@ -73,6 +73,20 @@ function checkRateLimit(ip) {
 // Função para fazer request ao OpenRouter
 function makeOpenRouterRequest(body) {
     return new Promise((resolve, reject) => {
+        // Valida body antes de enviar
+        if (!body || !body.messages || !Array.isArray(body.messages)) {
+            reject(new Error('Body inválido'));
+            return;
+        }
+
+        // Limita tamanho da mensagem (previne abuso)
+        const MAX_MESSAGE_LENGTH = 4000;
+        body.messages.forEach(msg => {
+            if (msg.content && msg.content.length > MAX_MESSAGE_LENGTH) {
+                msg.content = msg.content.substring(0, MAX_MESSAGE_LENGTH);
+            }
+        });
+
         const postData = JSON.stringify(body);
 
         const options = {
@@ -98,7 +112,18 @@ function makeOpenRouterRequest(body) {
 
             res.on('end', () => {
                 try {
-                    resolve(JSON.parse(data));
+                    const response = JSON.parse(data);
+
+                    // Sanitiza resposta antes de enviar ao cliente
+                    if (response.choices && response.choices[0] && response.choices[0].message) {
+                        const content = response.choices[0].message.content;
+                        // Limita tamanho da resposta
+                        if (content && content.length > 8000) {
+                            response.choices[0].message.content = content.substring(0, 8000) + '... [truncado]';
+                        }
+                    }
+
+                    resolve(response);
                 } catch (e) {
                     reject(new Error('Erro ao parsear resposta do OpenRouter'));
                 }
@@ -154,12 +179,34 @@ const server = http.createServer(async (req, res) => {
         try {
             const chatBody = JSON.parse(body);
 
-            // Adiciona system prompt do TJAEM
-            if (!chatBody.messages) {
-                chatBody.messages = [];
+            // Valida estrutura do body
+            if (!chatBody.messages || !Array.isArray(chatBody.messages)) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: 'Estrutura inválida. Required: { messages: [] }' }));
+                return;
             }
 
-            // Garante que o system prompt está presente
+            // Valida e sanitiza cada mensagem
+            const MAX_MESSAGES = 20;
+            if (chatBody.messages.length > MAX_MESSAGES) {
+                res.writeHead(400, { 'Content-Type': 'application/json' });
+                res.end(JSON.stringify({ error: `Máximo de ${MAX_MESSAGES} mensagens permitidas` }));
+                return;
+            }
+
+            // Sanitiza conteúdo das mensagens
+            chatBody.messages.forEach(msg => {
+                if (!msg.role || !['system', 'user', 'assistant'].includes(msg.role)) {
+                    throw new Error('Role inválido');
+                }
+                if (!msg.content || typeof msg.content !== 'string') {
+                    throw new Error('Conteúdo inválido');
+                }
+                // Remove tags HTML se houver
+                msg.content = msg.content.replace(/<[^>]*>/g, '');
+            });
+
+            // Adiciona system prompt do TJAEM
             const hasSystemPrompt = chatBody.messages.some(m => m.role === 'system');
             if (!hasSystemPrompt) {
                 chatBody.messages.unshift({
@@ -168,6 +215,9 @@ const server = http.createServer(async (req, res) => {
                 });
             }
 
+            // Registra requisição
+            console.log(`📝 [${new Date().toISOString()}] AI request from ${clientIp}`);
+
             const response = await makeOpenRouterRequest(chatBody);
 
             res.writeHead(200, { 'Content-Type': 'application/json' });
@@ -175,8 +225,8 @@ const server = http.createServer(async (req, res) => {
 
         } catch (error) {
             console.error('Erro no proxy:', error.message);
-            res.writeHead(502, { 'Content-Type': 'application/json' });
-            res.end(JSON.stringify({ error: 'Erro ao comunicar com OpenRouter' }));
+            res.writeHead(400, { 'Content-Type': 'application/json' });
+            res.end(JSON.stringify({ error: 'Requisição inválida' }));
         }
     });
 });
