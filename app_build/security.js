@@ -188,7 +188,7 @@ function generateSessionToken() {
  * Verifica se sessão é válida
  */
 function isSessionValid() {
-    const session = sessionStorage.getItem('tjaem_session');
+    const session = localStorage.getItem('tjaem_session');
     if (!session) return false;
     
     try {
@@ -217,8 +217,8 @@ function createSession(userData) {
         createdAt: Date.now()
     };
     
-    // NÃO armazenar dados sensíveis no sessionStorage
-    sessionStorage.setItem('tjaem_session', JSON.stringify(session));
+    // Utiliza localStorage para persistir sessão entre abas e recarregamentos
+    localStorage.setItem('tjaem_session', JSON.stringify(session));
     return session;
 }
 
@@ -226,8 +226,8 @@ function createSession(userData) {
  * Limpa sessão (logout)
  */
 function clearSession() {
-    sessionStorage.removeItem('tjaem_session');
-    localStorage.removeItem('tjaem-dark-mode'); // Mantém preferências do usuário
+    localStorage.removeItem('tjaem_session');
+    // Mantém preferências do usuário (como dark-mode)
 }
 
 // ============================================================

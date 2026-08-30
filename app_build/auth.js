@@ -243,7 +243,10 @@ async function doSecureLogout() {
     // Limpa estado local
     _authState.currentUser = null;
     _authState.isAuthenticated = false;
-    sessionStorage.clear();
+    
+    if (window.TJAEMSecurity) {
+        window.TJAEMSecurity.clearSession();
+    }
 
     // Redireciona para login
     window.location.replace('/');
